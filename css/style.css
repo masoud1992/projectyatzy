@@ -1,0 +1,53 @@
+.container{
+	display:inline-block;
+	float:right;
+	vertical-align:top;
+	width:50%;
+	height:50%
+}
+.table{
+	height:50%;
+}
+.table>tbody>tr>td, .table>tbody>tr>th{
+	padding:1px;
+}
+.engine{
+	display:inline-block;
+	border:1px solid black;
+	width:50%;
+	height:100vh;
+}
+
+input[type="text"]:focus {
+  outline: none;
+}
+
+.activePlayer{
+	background:red;
+	display:inline-block;
+	float:right;
+	width:30%;
+	height:231px;
+	vertical-align:top;
+}
+.choosenDices{
+	background:blue;
+	display:inline-block;
+	width:70%;
+	height:100px;
+}
+.rollDice{
+	display:block;
+	margin:auto;
+}
+.playground{
+	background:green;
+	display:inline-block;
+	width:70%;
+	height:100px;
+}
+.playerInfo{
+	background:yellow;
+	width:100%;
+	height:130px;
+}
