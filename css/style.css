@@ -18,10 +18,6 @@
 	height:100vh;
 }
 
-input[type="text"]:focus {
-  outline: none;
-}
-
 .activePlayer{
 	background:red;
 	display:inline-block;
