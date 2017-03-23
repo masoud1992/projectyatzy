@@ -1,18 +1,183 @@
 <!DOCTYPE html>
 <html>
 <head>
-
-
+  
   <title>SQL from frontend</title>
   <meta charset="utf8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/style.css">
   <script src="js/libs/jquery.js"></script>
   <script src="js/classes/base.class.js"></script>
   <script src="js/classes/test.class.js"></script>
   <script src="js/main.js"></script>
-  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 </head>
 <body>
-
-
+<div class="engine">
+<h1>RUBRIK</h1>
+<div class="upper">
+<p class="bg-success">test</p>
+<div class="activePlayer">
+<h3 id="playerName">Player1</h3>
+<img src="">
+<p>ACTIVE PLAYER</p>
+</div>
+<div class="playground">
+<p>Här hamnar nya tärnigar</p>
+</div> 
+<button class="rollDice">ROLL DICE!</button>
+<div class="choosenDices">
+<p>Valda tärningar</p>
+</div>
+<div class="playerInfo">
+<p>HÄR ÄR SMILEYS AV PLAYERS</p>
+</div>
+</div>
+</div>
+<div class="container">
+  <h2>Score Table</h2>          
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Combo</th>
+        <th><input type="text" value="Player1" id="name"></input></th>
+        <th><input type="text" value="Player2" id="name"></input></th>
+		<th><input type="text" value="Player3" id="name"></input></th>
+		<th><input type="text" value="Player4" id="name"></input></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td><input type="text" id="score"></input></td>
+        <td><input type="text" id="score"></input></td>
+		<td><input type="text" id="score"></input></td>
+		<td><input type="text" id="score"></input></td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td><input type="text" id="score"></input></td>
+		<td><input type="text" id="score"></input></td>
+		<td><input type="text" id="score"></input></td>
+		<td><input type="text" id="score"></input></td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td><input type="text" id="score"></input></td>
+		<td><input type="text" id="score"></input></td>
+		<td><input type="text" id="score"></input></td>
+		<td><input type="text" id="score"></input></td>
+      </tr>
+	  <tr>
+        <td>4</td>
+        <td><input type="text" id="score"></input></td>
+		<td><input type="text" id="score"></input></td>
+		<td><input type="text" id="score"></input></td>
+		<td><input type="text" id="score"></input></td>
+      </tr>
+	  <tr>
+        <td>5</td>
+        <td><input type="text" id="score"></input></td>
+		<td><input type="text" id="score"></input></td>
+		<td><input type="text" id="score"></input></td>
+		<td><input type="text" id="score"></input></td>
+      </tr>
+	  <tr>
+        <td>6</td>
+        <td><input type="text" id="score"></input></td>
+		<td><input type="text" id="score"></input></td>
+		<td><input type="text" id="score"></input></td>
+		<td><input type="text" id="score"></input></td>
+      </tr>
+	  <tr>
+        <td>Score</td>
+        <td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+      </tr>
+	  <tr>
+        <td>Bonus</td>
+        <td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+      </tr>
+	  <tr>
+        <td>1PAIR</td>
+        <td><input type="text" id="score"></input></td>
+		<td><input type="text" id="score"></input></td>
+		<td><input type="text" id="score"></input></td>
+		<td><input type="text" id="score"></input></td>
+      </tr>
+	  <tr>
+        <td>2PAIR</td>
+        <td><input type="text" id="score"></input></td>
+		<td><input type="text" id="score"></input></td>
+		<td><input type="text" id="score"></input></td>
+		<td><input type="text" id="score"></input></td>
+      </tr>
+	  <tr>
+        <td>3 of a kind</td>
+        <td><input type="text" id="score"></input></td>
+		<td><input type="text" id="score"></input></td>
+		<td><input type="text" id="score"></input></td>
+		<td><input type="text" id="score"></input></td>
+      </tr>
+	  <tr>
+        <td>4 of a kind</td>
+        <td><input type="text" id="score"></input></td>
+		<td><input type="text" id="score"></input></td>
+		<td><input type="text" id="score"></input></td>
+		<td><input type="text" id="score"></input></td>
+      </tr>
+	  <tr>
+        <td>Small Straight</td>
+        <td><input type="text" id="score"></input></td>
+		<td><input type="text" id="score"></input></td>
+		<td><input type="text" id="score"></input></td>
+		<td><input type="text" id="score"></input></td>
+      </tr>
+	  <tr>
+        <td>Large Straight</td>
+        <td><input type="text" id="score"></input></td>
+		<td><input type="text" id="score"></input></td>
+		<td><input type="text" id="score"></input></td>
+		<td><input type="text" id="score"></input></td>
+      </tr>
+	  <tr>
+        <td>Full House</td>
+        <td><input type="text" id="score"></input></td>
+		<td><input type="text" id="score"></input></td>
+		<td><input type="text" id="score"></input></td>
+		<td><input type="text" id="score"></input></td>
+      </tr>
+	  <tr>
+        <td>CHANCE</td>
+        <td><input type="text" id="score"></input></td>
+		<td><input type="text" id="score"></input></td>
+		<td><input type="text" id="score"></input></td>
+		<td><input type="text" id="score"></input></td>
+      </tr>
+	  <tr>
+        <td>YATZY!</td>
+        <td><input type="text" id="score"></input></td>
+		<td><input type="text" id="score"></input></td>
+		<td><input type="text" id="score"></input></td>
+		<td><input type="text" id="score"></input></td>
+      </tr>
+	  <tr>
+        <td>Total score:</td>
+        <td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 </body>
 </html>
