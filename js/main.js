@@ -31,6 +31,8 @@ $(document).ready(function() {
         key = event.code;
         // removes excess strings
         key = key.replace(/\D/g, '');
+        //make key an int
+        key = parseInt(key,10);
         // if it's a number call endturn()
         if (key >= 0 && key <= 9) {
             endTurn();
