@@ -3,13 +3,19 @@
 	float:right;
 	vertical-align:top;
 	width:50%;
-	height:50%
-}
-.table{
-	height:50%;
+	height:100vh;
 }
 .table>tbody>tr>td, .table>tbody>tr>th{
 	padding:1px;
+}
+#score{
+	width:35px;
+}
+#name{
+	width:80px;
+}
+.playerImage{
+	width:22.5%;
 }
 .engine{
 	display:inline-block;
@@ -17,30 +23,36 @@
 	width:50%;
 	height:100vh;
 }
-
+.playerImage{
+	display:inline-block;
+	text-align:center;
+}
 .activePlayer{
 	background:red;
 	display:inline-block;
 	float:right;
 	width:30%;
-	height:231px;
+	height:326px;
 	vertical-align:top;
 }
 .choosenDices{
 	background:blue;
 	display:inline-block;
 	width:70%;
-	height:100px;
+	height:150px;
+}
+.combo{
+	width:150px;
 }
 .rollDice{
 	display:block;
-	margin:auto;
+	width:70%;
 }
 .playground{
 	background:green;
 	display:inline-block;
 	width:70%;
-	height:100px;
+	height:150px;
 }
 .playerInfo{
 	background:yellow;
