@@ -24,13 +24,14 @@ $(document).ready(function() {
         throwDice(dicesToThrow);
 
     });
-
+      //listener on keys
     document.onkeypress = function(event) {
         event = event || window.event;
-
+          //get which key was pressed
         key = event.code;
-        key = key.replace(/\D/g, ''); // removes excess strings
-
+        // removes excess strings
+        key = key.replace(/\D/g, '');
+        // if it's a number call endturn()
         if (key >= 0 && key <= 9) {
             endTurn();
         }
@@ -38,7 +39,9 @@ $(document).ready(function() {
     };
 
     function endTurn() {
+      //reset counter
         throwCounter = 0;
+        //remove old dices from element
         $(this).find(".playground").empty();
 
 
