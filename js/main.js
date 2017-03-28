@@ -55,20 +55,20 @@ $(document).ready(function() {
                 $(temp).html("");
                 $(temp).text(currentTotal);
                 endTurn();
-                totalScore(currentTotal, currentValue);
+                totalScore(temp);
                 currentValue = 0;
                 currentTotal = 0;
             });
         }
     }
 
-    function totalScore(currentId, value) {
-
-
+    function totalScore(playerName) {
+      var sum = $(playerName).text();
+        sum = parseInt(sum,10);
         if (gameOver) {
             var dataString = {
                 userName: "name",
-                totalScore: current
+                totalScore: sum
             };
             $.ajax({
                 url: "api/Dbconn/insertTotalScore",
