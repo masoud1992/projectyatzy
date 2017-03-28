@@ -103,6 +103,36 @@ $(document).find("#diceOne").on("click", function() {
 
 
     }
+	
+		function nextStepGuide(stepInt) {
+		
+		switch(stepInt) {
+			case 0:{
+				$(".bg-success").text('Steg 0');
+			}
+			break;
+			
+			case 1:{
+				$(".bg-success").text('Steg 1');
+			}
+			break;
+			
+			case 2:{
+				$(".bg-success").text('Steg 2');
+			}
+			break;
+			
+			case 3:{
+				$(".bg-success").text('Steg 3');
+			}
+			break;
+			
+			default:{
+				$(".bg-success").text('Ajjabajja!');
+			}
+		}		
+		
+	}
 
 
 });
