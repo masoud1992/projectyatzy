@@ -13,6 +13,7 @@ $(document).find("#diceOne").on("click", function() {
     totalScore();
     var throwCounter = 0;
     var gameOver = false;
+	nextStepGuide(throwCounter);
 
     function throwDice(dicesToThrow) {
         throwCounter++;
@@ -30,9 +31,10 @@ $(document).find("#diceOne").on("click", function() {
     }
 
 
-    $(".throwDiceButton").click(function() {
+    $(".rollDice").click(function() {
         var dicesToThrow = $(".unmarked").length;
         throwDice(dicesToThrow);
+		nextStepGuide(throwCounter);
 
     });
     //listener on keys
@@ -100,7 +102,7 @@ $(document).find("#diceOne").on("click", function() {
         throwCounter = 0;
         //remove old dices from element
         $(this).find(".playground").empty();
-
+		nextStepGuide(throwCounter);
 
     }
 	
