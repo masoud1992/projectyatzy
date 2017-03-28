@@ -1,9 +1,15 @@
 $(document).ready(function() {
 
 $(document).find("#diceOne").on("click", function() {
+	
+	if($('#diceOne').hasClass('unmarked')){
+		$('#diceOne').addClass('marked').removeClass('unmarked');
+	}
+	else{
+		$('#diceOne').addClass('unmarked').removeClass('marked');
+	}
+ });
 
-    console.log("test");
-});
     totalScore();
     var throwCounter = 0;
     var gameOver = false;
@@ -62,11 +68,6 @@ $(document).find("#diceOne").on("click", function() {
                 totalScore(temp);
                 currentValue = 0;
                 currentTotal = 0;
-            });
-
-            $(document).find(".playground > .diceOne").on("click", function() {
-
-                console.log("test");
             });
         }
     }
