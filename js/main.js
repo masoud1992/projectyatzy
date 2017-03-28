@@ -1,5 +1,9 @@
 $(document).ready(function() {
 
+$(document).find("#diceOne").on("click", function() {
+
+    console.log("test");
+});
     totalScore();
     var throwCounter = 0;
     var gameOver = false;
@@ -59,12 +63,17 @@ $(document).ready(function() {
                 currentValue = 0;
                 currentTotal = 0;
             });
+
+            $(document).find(".playground > .diceOne").on("click", function() {
+
+                console.log("test");
+            });
         }
     }
 
     function totalScore(playerName) {
-      var sum = $(playerName).text();
-        sum = parseInt(sum,10);
+        var sum = $(playerName).text();
+        sum = parseInt(sum, 10);
         if (gameOver) {
             var dataString = {
                 userName: "name",
