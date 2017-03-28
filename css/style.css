@@ -15,7 +15,7 @@
 	width:80px;
 }
 .playerImage{
-	width:22.5%;
+	width:15%;
 }
 .engine{
 	display:inline-block;
@@ -63,4 +63,9 @@
 .dice-symbol{
 	font-size: 6vh;
 	display: inline-block;
+}
+
+.marked{
+	border: 2px solid #021a40;
+	border-radius: 5px;
 }
