@@ -2,6 +2,7 @@ $(document).ready(function() {
 
     totalScore();
     var throwCounter = 0;
+    var gameOver = false;
 
     function throwDice(dicesToThrow) {
         throwCounter++;
@@ -28,7 +29,8 @@ $(document).ready(function() {
 
     document.onkeypress = function(event) {
         event = event || window.event;
-        var getId = event.target.id;
+        var getId=null;
+        getId = event.target.id;
 
         //get which key was pressed
         var key = event.code;
@@ -38,18 +40,28 @@ $(document).ready(function() {
         key = parseInt(key, 10);
         if (key >= 0 && key <= 9) {
 
-            $(".rollDice").click(function() {
-                var currentValue = document.getElementById(getId).value;
-
+            $(".rollDice").unbind('click').click(function() {
+                var currentValue=0;
+                currentValue = document.getElementById(getId).value;
+                console.log("hämtar currentValue ",currentValue);
                 var temp = String(getId);
                 temp = temp.substring(0, temp.indexOf('s'));
                 temp = "#"+temp+"Total";
-                console.log(temp);
-                var currentTotal =   $(document).find(temp).text();
-                console.log(currentTotal);
+              var  currentTotal =0;
+                currentTotal = $(temp).text();
+                console.log("hämtar currentTotal ",currentTotal);
 
+                currentValue = parseInt(currentValue,10);
+                currentTotal = parseInt(currentTotal,10);
+                console.log("innan adderar currentTotal currentValue ",currentTotal);
+                currentTotal = currentTotal + currentValue;
+                console.log("adderar currentTotal currentValue ",currentTotal);
+                $(temp).html("");
+                $(temp).text(currentTotal);
                 endTurn();
                 totalScore(currentTotal, currentValue);
+                currentValue=0;
+                currentTotal=0;
             });
         }
     }
@@ -57,23 +69,21 @@ $(document).ready(function() {
     function totalScore(currentId, value) {
 
 
-
-
-        // if(current >18){
-        //   var dataString = {
-        //     userName:"name",
-        //     totalScore:current
-        //   };
-        //   $.ajax({
-        //       url: "api/Dbconn/insertTotalScore",
-        //       type: "POST",
-        //       dataType: 'json',
-        //       data: JSON.stringify(dataString),
-        //       processData: false,
-        //       contentType: "application/json"
-        //   });
-        //   console.log("ajax har körts");
-        // }
+        if(gameOver){
+          var dataString = {
+            userName:"name",
+            totalScore:current
+          };
+          $.ajax({
+              url: "api/Dbconn/insertTotalScore",
+              type: "POST",
+              dataType: 'json',
+              data: JSON.stringify(dataString),
+              processData: false,
+              contentType: "application/json"
+          });
+          console.log("ajax har körts");
+        }
 
     }
 
