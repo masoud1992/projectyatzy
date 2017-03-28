@@ -59,3 +59,8 @@
 	width:100%;
 	height:130px;
 }
+
+.dice-symbol{
+	font-size: 6vh;
+	display: inline-block;
+}
