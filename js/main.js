@@ -10,10 +10,13 @@ $(document).find("#diceOne").on("click", function() {
 	}
  });
 
+    $('#diceOne').addClass('marked').removeClass('unmarked');
+});
     totalScore();
     var throwCounter = 0;
     var gameOver = false;
 	nextStepGuide(throwCounter);
+
 
     function throwDice(dicesToThrow) {
         throwCounter++;
