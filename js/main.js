@@ -16,13 +16,13 @@ $(document).ready(function() {
     var throwCounter = 0;
     var gameOver = false;
 	nextStepGuide(throwCounter);
-	
-	// räknar antal gånger spelare skrivit poäng, för att vid rätt till evaluera ifGameIsOver 
+
+	// räknar antal gånger spelare skrivit poäng, för att vid rätt till evaluera ifGameIsOver
 	var inputCounterP1 = 0;
 	var inputCounterP2 = 0;
 	var inputCounterP3 = 0;
 	var inputCounterP4 = 0;
-	
+
 
 
     function throwDice(dicesToThrow) {
@@ -66,14 +66,14 @@ $(document).ready(function() {
                 currentValue = document.getElementById(getId).value;
                 var temp = String(getId);
                 temp = temp.substring(0, temp.indexOf('s'));
-				inputCountertemp = temp;
-				console.log(inputCountertemp);
+				            inputCountertemp = temp;
+                    checkBonus(temp);
                 temp = "#" + temp + "Total";
                 var currentTotal = 0;
                 currentTotal = $(temp).text();
                 currentValue = parseInt(currentValue, 10);
                 currentTotal = parseInt(currentTotal, 10);
-                currentTotal = currentTotal + currentValue;				
+                currentTotal = currentTotal + currentValue;
                 $(temp).html("");
                 $(temp).text(currentTotal);
                 endTurn();
@@ -81,7 +81,7 @@ $(document).ready(function() {
                 currentValue = 0;
                 currentTotal = 0;
 				incrementInputCounters(inputCountertemp);
-				
+
             });
         }
     }
@@ -116,41 +116,41 @@ $(document).ready(function() {
         $(this).find(".playground").empty();
 		nextStepGuide(throwCounter);
     }
-	
+
 	function nextStepGuide(stepInt) {
-		
+
 		switch(stepInt) {
 			case 0:{
 				$(".bg-success").text('Steg 0');
 			}
 			break;
-			
+
 			case 1:{
 				$(".bg-success").text('Steg 1');
 			}
 			break;
-			
+
 			case 2:{
 				$(".bg-success").text('Steg 2');
 			}
 			break;
-			
+
 			case 3:{
 				$(".bg-success").text('Steg 3');
 			}
 			break;
-			
+
 			default:{
 				$(".bg-success").text('Ajjabajja!');
 			}
-		}		
-		
+		}
+
 	}
-	
-	
-	
+
+
+
 	function checkIfGameIsOver(inputCountertemp){
-		
+
 		for(var i = 0; i <= 18; i++){
 			inputID = inputCountertemp + "score" + i;
 			console.log(inputID);
@@ -158,13 +158,12 @@ $(document).ready(function() {
 				alert("Gave over");
 			}
 		}
-	}  
-		
+	}
+
 	function incrementInputCounters(inputCountertemp){
 		switch(inputCountertemp) {
 			case "player1":{
 				inputCounterP1++;
-				console.log(inputCounterP1);
 				if(inputCounterP1 >= 24){
 					checkIfGameIsOver(inputCountertemp);
 				}
@@ -194,10 +193,35 @@ $(document).ready(function() {
 				}
 				break;
 			}
-			
-		}		
+
+		}
 	}
-	
-			
+
+  function checkBonus(player){
+    var tempCount = 0;
+    var tempValue=0;
+    for(let i = 1; i < 7; i++){
+			var inputID = player + "score" + i;
+      var tempId=  document.getElementById(inputID).value;
+			if (tempId != ''){
+          tempCount++;
+          tempValue += parseInt(tempId,10);
+			}
+		}
+    console.log(tempValue);
+    if(tempCount == 6 && tempvalue <=63){
+      tempPlayer = "." + player + "Bonus";
+      $(tempPlayer).text(50);
+      var tempPlayerTotal = "#" + temp + "Total";
+      var currentTotal = 0;
+      currentTotal = $(tempPlayerTotal).text();
+      currentTotal = parseInt(currentTotal, 10);
+      currentTotal += 50;
+      $(tempPlayerTotal).html("");
+      $(tempPlayerTotal).text(currentTotal);
+    }
+
+  }
+
 
 });

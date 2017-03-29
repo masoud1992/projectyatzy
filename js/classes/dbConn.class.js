@@ -2,15 +2,15 @@ class Dbconn extends Base {
 
   constructor(){
     super();
-    this.saveToDb();
+    // this.saveToDb();
   }
 
-  saveToDb(){
+  saveToDb(callback){
     // Just an example of how to run a query
     this.db.insertTotalScore({
-        userName:name,
-        totalScore:current
-      });
+        // userName:name,
+        // totalScore: current
+      }, callback);
   }
 
   static get sqlQueries(){
