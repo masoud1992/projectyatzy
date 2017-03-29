@@ -1,21 +1,21 @@
+new Dbconn();
 $(document).ready(function() {
 
-$(document).find("#diceOne").on("click", function() {
-	
-	if($('#diceOne').hasClass('unmarked')){
-		$('#diceOne').addClass('marked').removeClass('unmarked');
-	}
-	else{
-		$('#diceOne').addClass('unmarked').removeClass('marked');
-	}
- });
+    $(document).find("#diceOne").on("click", function() {
 
-    $('#diceOne').addClass('marked').removeClass('unmarked');
-});
+        if ($('#diceOne').hasClass('unmarked')) {
+            $('#diceOne').addClass('marked').removeClass('unmarked');
+        } else {
+            $('#diceOne').addClass('unmarked').removeClass('marked');
+        }
+    });
+
+    // $('#diceOne').addClass('marked').removeClass('unmarked');
+
     totalScore();
     var throwCounter = 0;
     var gameOver = false;
-	nextStepGuide(throwCounter);
+    nextStepGuide(throwCounter);
 
 
     function throwDice(dicesToThrow) {
@@ -37,7 +37,7 @@ $(document).find("#diceOne").on("click", function() {
     $(".rollDice").click(function() {
         var dicesToThrow = $(".unmarked").length;
         throwDice(dicesToThrow);
-		nextStepGuide(throwCounter);
+        nextStepGuide(throwCounter);
 
     });
     //listener on keys
@@ -105,39 +105,44 @@ $(document).find("#diceOne").on("click", function() {
         throwCounter = 0;
         //remove old dices from element
         $(this).find(".playground").empty();
-		nextStepGuide(throwCounter);
+        nextStepGuide(throwCounter);
 
     }
-	
-		function nextStepGuide(stepInt) {
-		
-		switch(stepInt) {
-			case 0:{
-				$(".bg-success").text('Steg 0');
-			}
-			break;
-			
-			case 1:{
-				$(".bg-success").text('Steg 1');
-			}
-			break;
-			
-			case 2:{
-				$(".bg-success").text('Steg 2');
-			}
-			break;
-			
-			case 3:{
-				$(".bg-success").text('Steg 3');
-			}
-			break;
-			
-			default:{
-				$(".bg-success").text('Ajjabajja!');
-			}
-		}		
-		
-	}
+
+    function nextStepGuide(stepInt) {
+
+        switch (stepInt) {
+            case 0:
+                {
+                    $(".bg-success").text('Steg 0');
+                }
+                break;
+
+            case 1:
+                {
+                    $(".bg-success").text('Steg 1');
+                }
+                break;
+
+            case 2:
+                {
+                    $(".bg-success").text('Steg 2');
+                }
+                break;
+
+            case 3:
+                {
+                    $(".bg-success").text('Steg 3');
+                }
+                break;
+
+            default:
+                {
+                    $(".bg-success").text('Ajjabajja!');
+                }
+        }
+
+    }
 
 
 });
