@@ -1,14 +1,14 @@
 $(document).ready(function() {
 
-$(document).find("#diceOne").on("click", function() {
-	
-	if($('#diceOne').hasClass('unmarked')){
-		$('#diceOne').addClass('marked').removeClass('unmarked');
-	}
-	else{
-		$('#diceOne').addClass('unmarked').removeClass('marked');
-	}
- });
+	$(document).find("#diceOne").on("click", function() {
+		
+		if($('#diceOne').hasClass('unmarked')){
+			$('#diceOne').addClass('marked').removeClass('unmarked');
+		}
+		else{
+			$('#diceOne').addClass('unmarked').removeClass('marked');
+		}
+	 });
 
     totalScore();
     var throwCounter = 0;
@@ -34,7 +34,6 @@ $(document).find("#diceOne").on("click", function() {
         }
 
         return dices;
-
     }
 
 
@@ -113,10 +112,9 @@ $(document).find("#diceOne").on("click", function() {
         //remove old dices from element
         $(this).find(".playground").empty();
 		nextStepGuide(throwCounter);
-
     }
 	
-		function nextStepGuide(stepInt) {
+	function nextStepGuide(stepInt) {
 		
 		switch(stepInt) {
 			case 0:{
@@ -150,13 +148,14 @@ $(document).find("#diceOne").on("click", function() {
 	
 	function checkIfGameIsOver(inputCountertemp){
 		
-		for(var i = 0; i <= 18; i++)
+		for(var i = 0; i <= 18; i++){
 			inputID = inputCountertemp + "score" + i;
 			console.log(inputID);
 			if (inputID.value != ''){
 				alert("Gave over");
 			}
-		}  
+		}
+	}  
 		
 	function incrementInputCounters(inputCountertemp){
 		switch(inputCountertemp) {
