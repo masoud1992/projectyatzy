@@ -209,7 +209,7 @@ $(document).ready(function() {
 			}
 		}
     console.log(tempValue);
-    if(tempCount == 6 && tempvalue <=63){
+    if(tempCount == 6 && tempValue <=63){
       tempPlayer = "." + player + "Bonus";
       $(tempPlayer).text(50);
       var tempPlayerTotal = "#" + temp + "Total";
