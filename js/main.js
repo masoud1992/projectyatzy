@@ -1,12 +1,19 @@
 $(document).ready(function() {
 
 $(document).find("#diceOne").on("click", function() {
+	
+	if($('#diceOne').hasClass('unmarked')){
+		$('#diceOne').addClass('marked').removeClass('unmarked');
+	}
+	else{
+		$('#diceOne').addClass('unmarked').removeClass('marked');
+	}
+ });
 
-    console.log("test");
-});
     totalScore();
     var throwCounter = 0;
     var gameOver = false;
+	nextStepGuide(throwCounter);
 
     function throwDice(dicesToThrow) {
         throwCounter++;
@@ -24,9 +31,10 @@ $(document).find("#diceOne").on("click", function() {
     }
 
 
-    $(".throwDiceButton").click(function() {
+    $(".rollDice").click(function() {
         var dicesToThrow = $(".unmarked").length;
         throwDice(dicesToThrow);
+		nextStepGuide(throwCounter);
 
     });
     //listener on keys
@@ -63,11 +71,6 @@ $(document).find("#diceOne").on("click", function() {
                 currentValue = 0;
                 currentTotal = 0;
             });
-
-            $(document).find(".playground > .diceOne").on("click", function() {
-
-                console.log("test");
-            });
         }
     }
 
@@ -99,9 +102,39 @@ $(document).find("#diceOne").on("click", function() {
         throwCounter = 0;
         //remove old dices from element
         $(this).find(".playground").empty();
-
+		nextStepGuide(throwCounter);
 
     }
+	
+		function nextStepGuide(stepInt) {
+		
+		switch(stepInt) {
+			case 0:{
+				$(".bg-success").text('Steg 0');
+			}
+			break;
+			
+			case 1:{
+				$(".bg-success").text('Steg 1');
+			}
+			break;
+			
+			case 2:{
+				$(".bg-success").text('Steg 2');
+			}
+			break;
+			
+			case 3:{
+				$(".bg-success").text('Steg 3');
+			}
+			break;
+			
+			default:{
+				$(".bg-success").text('Ajjabajja!');
+			}
+		}		
+		
+	}
 
 
 });
