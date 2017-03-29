@@ -1,13 +1,54 @@
 $(document).ready(function() {
 
-$(document).find("#diceOne").on("click", function() {
-	
-	if($('#diceOne').hasClass('unmarked')){
-		$('#diceOne').addClass('marked').removeClass('unmarked');
+$(document).find(".playground").on("click", function(e) {
+	var clickedDice = e.target.id;
+
+	switch(clickedDice)
+	{
+		case "diceOne":
+			if($('#diceOne').hasClass('unmarked')){
+				$('#diceOne').addClass('marked').removeClass('unmarked');
+			}
+			else{
+				$('#diceOne').addClass('unmarked').removeClass('marked');
+			}
+			break;
+		case "diceTwo":
+			if($('#diceTwo').hasClass('unmarked')){
+				$('#diceTwo').addClass('marked').removeClass('unmarked');
+			}
+			else{
+				$('#diceTwo').addClass('unmarked').removeClass('marked');
+			}
+			break;
+		case "diceThree":
+			if($('#diceThree').hasClass('unmarked')){
+				$('#diceThree').addClass('marked').removeClass('unmarked');
+			}
+			else{
+				$('#diceThree').addClass('unmarked').removeClass('marked');
+			}
+			break;
+		case "diceFour":
+			if($('#diceFour').hasClass('unmarked')){
+				$('#diceFour').addClass('marked').removeClass('unmarked');
+			}
+			else{
+				$('#diceFour').addClass('unmarked').removeClass('marked');
+			}
+			break;
+		case "diceFive":
+			if($('#diceFive').hasClass('unmarked')){
+				$('#diceFive').addClass('marked').removeClass('unmarked');
+			}
+			else{
+				$('#diceFive').addClass('unmarked').removeClass('marked');
+			}
+			break;
+		default:
+			break;
 	}
-	else{
-		$('#diceOne').addClass('unmarked').removeClass('marked');
-	}
+
  });
 
     totalScore();
