@@ -1,14 +1,57 @@
 new Dbconn();
 $(document).ready(function() {
 
-    $(document).find("#diceOne").on("click", function() {
+$(document).find(".playground").on("click", function(e) {
+	var clickedDice = e.target.id;
 
-        if ($('#diceOne').hasClass('unmarked')) {
-            $('#diceOne').addClass('marked').removeClass('unmarked');
-        } else {
-            $('#diceOne').addClass('unmarked').removeClass('marked');
-        }
-    });
+	switch(clickedDice)
+	{
+		case "diceOne":
+			if($('#diceOne').hasClass('unmarked')){
+				$('#diceOne').addClass('marked').removeClass('unmarked');
+			}
+			else{
+				$('#diceOne').addClass('unmarked').removeClass('marked');
+			}
+			break;
+		case "diceTwo":
+			if($('#diceTwo').hasClass('unmarked')){
+				$('#diceTwo').addClass('marked').removeClass('unmarked');
+			}
+			else{
+				$('#diceTwo').addClass('unmarked').removeClass('marked');
+			}
+			break;
+		case "diceThree":
+			if($('#diceThree').hasClass('unmarked')){
+				$('#diceThree').addClass('marked').removeClass('unmarked');
+			}
+			else{
+				$('#diceThree').addClass('unmarked').removeClass('marked');
+			}
+			break;
+		case "diceFour":
+			if($('#diceFour').hasClass('unmarked')){
+				$('#diceFour').addClass('marked').removeClass('unmarked');
+			}
+			else{
+				$('#diceFour').addClass('unmarked').removeClass('marked');
+			}
+			break;
+		case "diceFive":
+			if($('#diceFive').hasClass('unmarked')){
+				$('#diceFive').addClass('marked').removeClass('unmarked');
+			}
+			else{
+				$('#diceFive').addClass('unmarked').removeClass('marked');
+			}
+			break;
+		default:
+			break;
+	}
+
+ });
+
 
     // $('#diceOne').addClass('marked').removeClass('unmarked');
 
@@ -42,10 +85,53 @@ $(document).ready(function() {
 
     $(".rollDice").click(function() {
         var dicesToThrow = $(".unmarked").length;
-        throwDice(dicesToThrow);
+        displayDice(throwDice(dicesToThrow));
         nextStepGuide(throwCounter);
 
     });
+
+    function displayDice(dices) {
+        console.log(dices);
+        var currentDice = 0;
+
+        for (i = 1; i <= 5; i++)
+        {
+            var diceImage = returnNumberAsWord(i);
+            console.log(diceImage);
+
+            if ($('#dice' + diceImage).hasClass('unmarked'))
+            {
+                var number = dices[currentDice];
+                $('#dice' + diceImage).attr("src", "images/dices/" + number + ".png");
+                currentDice += 1;
+            }
+        }
+    }
+
+    function returnNumberAsWord(number)
+    {
+        switch (number)
+        {
+            case 1: 
+                return 'One';
+                break;
+            case 2: 
+                return 'Two';
+                break;
+            case 3:
+                return 'Three';
+                break;
+            case 4:
+                return 'Four';
+                break;
+            case 5:
+                return 'Five';
+                break;
+            default:
+                break;
+        }
+    }
+
     //listener on keys
 
     document.onkeypress = function(event) {
