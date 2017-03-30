@@ -52,12 +52,6 @@ $(document).find(".playground").on("click", function(e) {
 
  });
 
-        if ($('#diceOne').hasClass('unmarked')) {
-            $('#diceOne').addClass('marked').removeClass('unmarked');
-        } else {
-            $('#diceOne').addClass('unmarked').removeClass('marked');
-        }
-    });
 
     // $('#diceOne').addClass('marked').removeClass('unmarked');
 
