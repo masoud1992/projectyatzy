@@ -85,10 +85,53 @@ $(document).find(".playground").on("click", function(e) {
 
     $(".rollDice").click(function() {
         var dicesToThrow = $(".unmarked").length;
-        throwDice(dicesToThrow);
+        displayDice(throwDice(dicesToThrow));
         nextStepGuide(throwCounter);
 
     });
+
+    function displayDice(dices) {
+        console.log(dices);
+        var currentDice = 0;
+
+        for (i = 1; i <= 5; i++)
+        {
+            var diceImage = returnNumberAsWord(i);
+            console.log(diceImage);
+
+            if ($('#dice' + diceImage).hasClass('unmarked'))
+            {
+                var number = dices[currentDice];
+                $('#dice' + diceImage).attr("src", "images/dices/" + number + ".png");
+                currentDice += 1;
+            }
+        }
+    }
+
+    function returnNumberAsWord(number)
+    {
+        switch (number)
+        {
+            case 1: 
+                return 'One';
+                break;
+            case 2: 
+                return 'Two';
+                break;
+            case 3:
+                return 'Three';
+                break;
+            case 4:
+                return 'Four';
+                break;
+            case 5:
+                return 'Five';
+                break;
+            default:
+                break;
+        }
+    }
+
     //listener on keys
 
     document.onkeypress = function(event) {
