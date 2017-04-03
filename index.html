@@ -3,14 +3,14 @@
 
 <head>
 
-    <title>SQL from frontend</title>
+    <title>Yatzy</title>
     <meta charset="utf8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
     <script src="js/libs/jquery.js"></script>
     <script src="js/classes/base.class.js"></script>
-    <script src="js/classes/test.class.js"></script>
+    <script src="js/classes/dbConn.class.js"></script>
     <script src="js/main.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -28,15 +28,14 @@
                 <p>ACTIVE PLAYER</p>
             </div>
             <div class="playground">
-                <img class="unmarked" id="diceOne" src="images/dices/one.png" height="32" width="32">
-                <img class="unmarked" id="diceTwo" src="images/dices/two.png" height="32" width="32">
-                <img class="unmarked" id="diceThree" src="images/dices/three.png" height="32" width="32">
-                <img class="unmarked" id="diceFour" src="images/dices/four.png" height="32" width="32">
-                <img class="unmarked" id="diceFive" src="images/dices/five.png" height="32" width="32">
+                <img class="unmarked" id="diceOne" src="images/dices/1.png" height="32" width="32">
+                <img class="unmarked" id="diceTwo" src="images/dices/2.png" height="32" width="32">
+                <img class="unmarked" id="diceThree" src="images/dices/3.png" height="32" width="32">
+                <img class="unmarked" id="diceFour" src="images/dices/4.png" height="32" width="32">
+                <img class="unmarked" id="diceFive" src="images/dices/5.png" height="32" width="32">
             </div>
             <button class="rollDice">ROLL DICE!</button>
             <div class="playerInfo">
-                <p>HÄR ÄR SMILEYS AV PLAYERS</p>
                 <div class="playerImage">
                     <img src="images/Player1.png">
                     <p class="playerName">PL1</p>
@@ -149,10 +148,10 @@
                     </tr>
                     <tr>
                         <td class="combo">Bonus</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td class="player1Bonus"></td>
+                        <td class="player2Bonus"></td>
+                        <td class="player3Bonus"></td>
+                        <td class="player4Bonus"></td>
                     </tr>
                     <tr>
                         <td class="combo">1PAIR</td>
@@ -255,10 +254,10 @@
                     </tr>
                     <tr>
                         <td class="combo">Total score:</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td><p id="player1Total">0</p></td>
+                        <td><p id="player2Total">0</p></td>
+                        <td><p id="player3Total">0</p></td>
+                        <td><p id="player4Total">0</p></td>
                     </tr>
                 </tbody>
             </table>
