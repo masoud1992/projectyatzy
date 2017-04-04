@@ -277,24 +277,27 @@ var spellogik = {
     },
 
     yatzy: function(dices){
-    	score = null;
-    	var reference = dices[0];
-    	isYatzy = true;
+    	
+        var score = null;
+        var reference = dices[0];
+        var isYatzy = true;
 
-    	for(var d in dices){
-    		if(d == reference){
+        for(var i = 0; i < dices.length; i++){
+            if(dices[i] == dices[0]){
+                console.log("d lika med", i);
+                
+            }
+            else{
+                isYatzy = false;
+                
+            }
+        }
 
-    		}
-    		else{
-    			isYatzy = false;
-    		}
-    	}
-
-    	if(isYatzy == true){
-    		score = 50;
-    	}
-
-    	return score;
+        if(isYatzy == true){
+            score = 50;
+        }
+        console.log(score);
+        return score;
     }
 
 
