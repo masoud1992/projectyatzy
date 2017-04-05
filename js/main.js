@@ -83,7 +83,29 @@ $(document).ready(function() {
     var inputCounterP3 = 0;
     var inputCounterP4 = 0;
 
+    var activePlayer = 1;
 
+    function changePlayer(currentPlayer)
+    {
+
+        var playerImage = returnNumberAsWord(activePlayer);
+
+        $('#image' + playerImage).addClass('unmarked').removeClass('marked');
+        console.log(playerImage + "changed");
+
+        if (activePlayer == 4)
+        {
+            activePlayer = 1;
+        }
+        else
+        {
+            activePlayer += 1;
+        }
+
+        playerImage = returnNumberAsWord(activePlayer);
+        $('#image' + playerImage).addClass('marked').removeClass('unmarked');
+        console.log(playerImage + 'changed');
+    }
 
     function throwDice(dicesToThrow) {
         throwCounter++;
@@ -108,11 +130,6 @@ $(document).ready(function() {
     $(".rollDice").click(function() {
 
         if (throwCounter == 3) {
-            throwCounter = 0;
-            dicesToThrow = 5;
-            // $(".playground").empty();
-            displayDice(throwDice(dicesToThrow));
-            nextStepGuide(throwCounter);
 
             if ($('#diceOne').hasClass('marked')) {
                 $('#diceOne').addClass('unmarked').removeClass('marked');
@@ -230,10 +247,11 @@ $(document).ready(function() {
             currentTotal = 0;
             incrementInputCounters(inputCountertemp);
             checkBonus(inputCountertemp);
-            throwCounter = 1;
+            throwCounter = 0;
             nextStepGuide(throwCounter);
-
-
+            console.log("activePlayer = " + activePlayer);
+            changePlayer(activePlayer);
+            
         }
     } //);
 
@@ -267,31 +285,31 @@ $(document).ready(function() {
         switch (stepInt) {
             case 0:
                 {
-                    $(".bg-info").text('Steg 0');
+                    $(".bg-info").text('Steg 0, slå ditt första slag');
                 }
                 break;
 
             case 1:
                 {
-                    $(".bg-info").text('Steg 1');
+                    $(".bg-info").text('Steg 1, du har två slag kvar');
                 }
                 break;
 
             case 2:
                 {
-                    $(".bg-info").text('Steg 2');
+                    $(".bg-info").text('Steg 2, du har ett slag kvar');
                 }
                 break;
 
             case 3:
                 {
-                    $(".bg-info").text('Steg 3');
+                    $(".bg-info").text('Steg 3, du har använt alla dina slag');
                 }
                 break;
 
             default:
                 {
-                    $(".bg-info").text('Ajjabajja!');
+                    $(".bg-info").text('Nu har någonting gått fel, ring vaktmästaren');
                 }
         }
 
