@@ -251,7 +251,8 @@ $(document).ready(function() {
             nextStepGuide(throwCounter);
             console.log("activePlayer = " + activePlayer);
             changePlayer(activePlayer);
-            
+            resetDices();
+            console.log('reset dices')
         }
     } //);
 
@@ -392,7 +393,16 @@ $(document).ready(function() {
 
     }
     
-   
+   function resetDices()
+   {
+        for (i = 1; i <= 5; i++)
+        {
+            var dice = returnNumberAsWord(i);
+            if ($('#dice' + dice).hasClass('marked')){
+                $('#dice' + dice).addClass('unmarked').removeClass('marked');
+            }
+        }
+   }
 
 
 });
