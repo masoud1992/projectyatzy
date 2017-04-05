@@ -1,29 +1,6 @@
 new Dbconn();
 $(document).ready(function() {
 
-    /*function test() {
-        var dices = [1, 1, 1, 1, 1];
-        var score = null;
-        var reference = dices[0];
-        var isYatzy = true;
-
-        for (var i = 0; i < dices.length; i++) {
-            if (dices[i] == dices[0]) {
-                console.log("d lika med", i);
-
-            } else {
-                isYatzy = false;
-
-            }
-        }
-
-        if (isYatzy == true) {
-            score = 50;
-        }
-        console.log(score);
-        return score;
-    }*/
-
 
     $(".playground").on("click", function(e) {
         var clickedDice = e.target.id;
@@ -100,8 +77,11 @@ $(document).ready(function() {
     }
 
      function getSpelLogik(dices){
-        console.log(spellogik.ones(dices));
-        console.log(dices);
+        for(var f in spellogik){
+            console.log(spellogik[f](dices).sum); 
+            console.log(spellogik[f](dices).plats);   
+        }
+        
     }
 
     var dicesToThrow;
@@ -134,7 +114,6 @@ $(document).ready(function() {
             dicesToThrow = $(".playground .unmarked").length;
             displayDice(throwDice(dicesToThrow));
             nextStepGuide(throwCounter);
-            //test();
 
         }
         if (gameOver) {
