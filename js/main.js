@@ -24,7 +24,7 @@ $(document).ready(function() {
         return score;
     }
 
-
+	//markering av valda tärningar
     $(".playground").on("click", function(e) {
         var clickedDice = e.target.id;
 
