@@ -1,5 +1,30 @@
 new Dbconn();
-$(document).ready(function() {
+$(document).ready(function() {   
+
+    function test (){
+        var dices = [1,1,1,1,1];
+        var score = null;
+        var reference = dices[0];
+        var isYatzy = true;
+
+        for(var i = 0; i < dices.length; i++){
+            if(dices[i] == dices[0]){
+                console.log("d lika med", i);
+                
+            }
+            else{
+                isYatzy = false;
+                
+            }
+        }
+
+        if(isYatzy == true){
+            score = 50;
+        }
+        console.log(score);
+        return score;
+    }
+
 
     $(".playground").on("click", function(e) {
         var clickedDice = e.target.id;
@@ -77,6 +102,7 @@ $(document).ready(function() {
 
     var dicesToThrow;
     $(".rollDice").click(function() {
+        
         if (throwCounter == 3) {
             throwCounter = 0;
             dicesToThrow = 5;
@@ -104,6 +130,8 @@ $(document).ready(function() {
             dicesToThrow = $(".unmarked").length;
             displayDice(throwDice(dicesToThrow));
             nextStepGuide(throwCounter);
+            test();
+            
         }
 
     });
@@ -231,31 +259,31 @@ var tempKey = null;
         switch (stepInt) {
             case 0:
                 {
-                    $(".bg-success").text('Steg 0');
+                    $(".bg-info").text('Steg 0');
                 }
                 break;
 
             case 1:
                 {
-                    $(".bg-success").text('Steg 1');
+                    $(".bg-info").text('Steg 1');
                 }
                 break;
 
             case 2:
                 {
-                    $(".bg-success").text('Steg 2');
+                    $(".bg-info").text('Steg 2');
                 }
                 break;
 
             case 3:
                 {
-                    $(".bg-success").text('Steg 3');
+                    $(".bg-info").text('Steg 3');
                 }
                 break;
 
             default:
                 {
-                    $(".bg-success").text('Ajjabajja!');
+                    $(".bg-info").text('Ajjabajja!');
                 }
         }
 

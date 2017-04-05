@@ -18,46 +18,40 @@
 </head>
 
 <body>
-    <div class="engine">
-        <h1>RUBRIK</h1>
-        <div class="upper">
-            <p class="bg-success">test</p>
-            <div class="activePlayer">
-                <h3 id="playerName">Player1</h3>
-                <img src="">
-                <p>ACTIVE PLAYER</p>
+    <div class="container-fluid">
+	<div class="row">
+        <div class="jumbotron"><h1>RUBRIK</h1></div>
+        <div class="upper col-md-5">
+            <p class="bg-info">test</p>
+            <div class="playground col-md-6 col-xs-6">
+                <div class="col-md-2 col-xl-2"><img class="unmarked pull-right" id="diceOne" src="images/dices/1.png" height="38" width="38"></div>
+                <div class="col-md-2 col-xl-2"><img class="unmarked pull-right" id="diceTwo" src="images/dices/2.png" height="38" width="38"></div>
+                <div class="col-md-2 col-xl-2"><img class="unmarked pull-right" id="diceThree" src="images/dices/3.png" height="38" width="38"></div>
+                <div class="col-md-2 col-xl-2"><img class="unmarked pull-right" id="diceFour" src="images/dices/4.png" height="38" width="38"></div>
+                <div class="col-md-2 col-xl-2"><img class="unmarked pull-right" id="diceFive" src="images/dices/5.png" height="38" width="38"></div>
             </div>
-            <div class="playground">
-                <img class="unmarked" id="diceOne" src="images/dices/1.png" height="32" width="32">
-                <img class="unmarked" id="diceTwo" src="images/dices/2.png" height="32" width="32">
-                <img class="unmarked" id="diceThree" src="images/dices/3.png" height="32" width="32">
-                <img class="unmarked" id="diceFour" src="images/dices/4.png" height="32" width="32">
-                <img class="unmarked" id="diceFive" src="images/dices/5.png" height="32" width="32">
-            </div>
-            <button class="rollDice">ROLL DICE!</button>
-            <div class="playerInfo">
-                <div class="playerImage">
+            <button type="button" class="rollDice btn-primary btn-block btn-lg">ROLL DICE!</button>
+            <div class="playerInfo col-lg-6">
+                <div class="playerImage col-md-3">
                     <img src="images/Player1.png">
                     <p class="playerName">PL1</p>
                 </div>
-                <div class="playerImage">
+                <div class="playerImage col-md-3">
                     <img src="images/Player2.png">
                     <p class="playerName">PL2</p>
                 </div>
-                <div class="playerImage">
+                <div class="playerImage col-md-3">
                     <img src="images/Player3.png">
                     <p class="playerName">PL3</p>
                 </div>
-                <div class="playerImage">
+                <div class="playerImage col-md-3">
                     <img src="images/Player4.png">
                     <p class="playerName">PL4</p>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="container">
-        <h2>Score Table</h2>
-        <div class="table-responsive">
+		
+		<div class="scoreBoard col-md-6 col-xs-6">
             <table class="table table-bordered">
                 <thead>
                     <tr>
@@ -261,8 +255,9 @@
                     </tr>
                 </tbody>
             </table>
-        </div>
+		</div>
     </div>
+	</div>
 </body>
 
 </html>
