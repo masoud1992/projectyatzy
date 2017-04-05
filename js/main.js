@@ -1,7 +1,7 @@
 new Dbconn();
 $(document).ready(function() {
 
-    function test() {
+    /*function test() {
         var dices = [1, 1, 1, 1, 1];
         var score = null;
         var reference = dices[0];
@@ -22,7 +22,7 @@ $(document).ready(function() {
         }
         console.log(score);
         return score;
-    }
+    }*/
 
 	//markering av valda tärningar
     $(".playground").on("click", function(e) {
@@ -95,8 +95,13 @@ $(document).ready(function() {
             var randomNum = Math.floor((Math.random() * 6) + 1);
             dices.push(randomNum);
         }
-
+        getSpelLogik(dices);
         return dices;
+    }
+
+     function getSpelLogik(dices){
+        console.log(spellogik.ones(dices));
+        console.log(dices);
     }
 
     var dicesToThrow;
@@ -126,10 +131,10 @@ $(document).ready(function() {
             }
 
         } else {
-            dicesToThrow = $(".unmarked").length;
+            dicesToThrow = $(".playground .unmarked").length;
             displayDice(throwDice(dicesToThrow));
             nextStepGuide(throwCounter);
-            test();
+            //test();
 
         }
         if (gameOver) {
@@ -368,6 +373,8 @@ $(document).ready(function() {
         }
 
     }
+    
+   
 
 
 });
