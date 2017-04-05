@@ -233,7 +233,7 @@ $(document).ready(function() {
     } //);
 
     function totalScore(playerField, playerNumber) {
-        var sum = $(playerName).text();
+        var sum = $(playerNumber).text();
         var tempPlayerName = "#" + playerNumber + "Name"
         var userName = $(tempPlayerName).text();
         sum = parseInt(sum, 10);
