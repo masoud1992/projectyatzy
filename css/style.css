@@ -1,71 +1,53 @@
-.container{
-	display:inline-block;
-	float:right;
-	vertical-align:top;
-	width:50%;
-	height:100vh;
-}
 .table>tbody>tr>td, .table>tbody>tr>th{
 	padding:1px;
+}
+th{
+	width: 20px;
+}
+td{
+	width: 30px;
+}
+input{
+	width:50px;
 }
 #score{
 	width:35px;
 }
 #name{
-	width:80px;
+	width:60px;
 }
-.playerImage{
-	width:15%;
-}
-.engine{
-	display:inline-block;
-	border:1px solid black;
-	width:50%;
-	height:100vh;
-}
-.playerImage{
-	display:inline-block;
+.col-md-2, .playerImage, .playground{
+	padding-top:15px;
+	vertical-align:middle;
 	text-align:center;
-}
-.activePlayer{
-	background:red;
 	display:inline-block;
-	float:right;
-	width:30%;
-	height:326px;
-	vertical-align:top;
-}
-.choosenDices{
-	background:blue;
-	display:inline-block;
-	width:70%;
-	height:150px;
-}
-.combo{
-	width:150px;
-}
-.rollDice{
-	display:block;
-	width:70%;
+	height:100px;
 }
 .playground{
-	background:green;
-	display:inline-block;
-	width:70%;
-	height:150px;
+	width: 80%;
 }
 .playerInfo{
-	background:yellow;
-	width:100%;
-	height:130px;
+	width: 80%;
 }
-
-.dice-symbol{
-	font-size: 6vh;
-	display: inline-block;
+.combo{
+	width:50px;
 }
-
 .marked{
 	border: 2px solid #021a40;
 	border-radius: 5px;
+	padding:0px;
 }
+@media screen and (min-width: 1200px){
+    .col-xl-2, .playerImage, .playground{
+		padding-top:15px;
+		padding-left: 15px;
+		vertical-align:middle;
+		text-align: center;
+		display:inline-block;
+		height:100px;
+	}
+	
+	.combo{
+		width: 100px;
+	}
+} 

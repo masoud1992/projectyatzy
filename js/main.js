@@ -1,6 +1,30 @@
 new Dbconn();
 $(document).ready(function() {
 
+    function test() {
+        var dices = [1, 1, 1, 1, 1];
+        var score = null;
+        var reference = dices[0];
+        var isYatzy = true;
+
+        for (var i = 0; i < dices.length; i++) {
+            if (dices[i] == dices[0]) {
+                console.log("d lika med", i);
+
+            } else {
+                isYatzy = false;
+
+            }
+        }
+
+        if (isYatzy == true) {
+            score = 50;
+        }
+        console.log(score);
+        return score;
+    }
+
+
     $(".playground").on("click", function(e) {
         var clickedDice = e.target.id;
 
@@ -77,44 +101,50 @@ $(document).ready(function() {
 
     var dicesToThrow;
     $(".rollDice").click(function() {
+
         if (throwCounter == 3) {
             throwCounter = 0;
             dicesToThrow = 5;
-						// $(".playground").empty();
+            // $(".playground").empty();
             displayDice(throwDice(dicesToThrow));
             nextStepGuide(throwCounter);
 
-						if ($('#diceOne').hasClass('marked')) {
-								$('#diceOne').addClass('unmarked').removeClass('marked');
-						}
-						if ($('#diceTwo').hasClass('marked')) {
-								$('#diceTwo').addClass('unmarked').removeClass('marked');
-						}
-						if ($('#diceThree').hasClass('marked')) {
-								$('#diceThree').addClass('unmarked').removeClass('marked');
-						}
-						if ($('#diceFour').hasClass('marked')) {
-								$('#diceFour').addClass('unmarked').removeClass('marked');
-						}
-						if ($('#diceFive').hasClass('marked')) {
-								$('#diceFive').addClass('unmarked').removeClass('marked');
-						}
+            if ($('#diceOne').hasClass('marked')) {
+                $('#diceOne').addClass('unmarked').removeClass('marked');
+            }
+            if ($('#diceTwo').hasClass('marked')) {
+                $('#diceTwo').addClass('unmarked').removeClass('marked');
+            }
+            if ($('#diceThree').hasClass('marked')) {
+                $('#diceThree').addClass('unmarked').removeClass('marked');
+            }
+            if ($('#diceFour').hasClass('marked')) {
+                $('#diceFour').addClass('unmarked').removeClass('marked');
+            }
+            if ($('#diceFive').hasClass('marked')) {
+                $('#diceFive').addClass('unmarked').removeClass('marked');
+            }
 
         } else {
             dicesToThrow = $(".unmarked").length;
             displayDice(throwDice(dicesToThrow));
             nextStepGuide(throwCounter);
+            test();
+
+        }
+        if (gameOver) {
+            totalScore(tempPlayerField, inputCountertemp);
         }
 
     });
 
-		function endTurn() {
-				//reset counter
-				throwCounter = 0;
-				//remove old dices from element
+    function endTurn() {
+        //reset counter
+        throwCounter = 0;
+        //remove old dices from element
 
-				nextStepGuide(throwCounter);
-		}
+        nextStepGuide(throwCounter);
+    }
 
     function displayDice(dices) {
 
@@ -154,73 +184,74 @@ $(document).ready(function() {
     }
 
     //listener on inputfields blur
-var tempKey = null;
+    var tempKey = null;
     document.onchange = function(event) {
 
         event = event || window.event;
         var getId = null;
-				var key = null;
+        var key = null;
 
         getId = event.target.id;
         //get which key was pressed
-         key = event.target.value;
+        key = event.target.value;
 
-				//  if(key<10){
-				// 	 tempKey = parseInt(key, 10);
-				//  }
+        //  if(key<10){
+        // 	 tempKey = parseInt(key, 10);
+        //  }
         // removes excess strings
         // key = key.replace(/\D/g, '');
         //make key an int
         key = parseInt(key, 10);
         if (key >= 0 && key <= 10000) {
-  			// $(".rollDice").unbind('click').click(function() {
-                var currentValue = 0;
-                // currentValue = document.getElementById(getId).value;
-                var tempPlayerField = String(getId);
-                tempPlayerField = tempPlayerField.substring(0, tempPlayerField.indexOf('s'));
-                inputCountertemp = tempPlayerField;
-                tempPlayerField = "#" + tempPlayerField + "Total";
-                var currentTotal = 0;
-                currentTotal = $(tempPlayerField).text();
-                // currentValue = parseInt(currentValue, 10);
-                currentTotal = parseInt(currentTotal, 10);
-								if(tempKey != null){
-									currentTotal = currentTotal - tempKey + key;
-								}else{
+            // $(".rollDice").unbind('click').click(function() {
+            var currentValue = 0;
+            // currentValue = document.getElementById(getId).value;
+            var tempPlayerField = String(getId);
+            tempPlayerField = tempPlayerField.substring(0, tempPlayerField.indexOf('s'));
+            inputCountertemp = tempPlayerField;
+            tempPlayerField = "#" + tempPlayerField + "Total";
+            var currentTotal = 0;
+            currentTotal = $(tempPlayerField).text();
+            // currentValue = parseInt(currentValue, 10);
+            currentTotal = parseInt(currentTotal, 10);
+            if (tempKey != null) {
+                currentTotal = currentTotal - tempKey + key;
+            } else {
                 currentTotal = currentTotal + key;
-								}
-                $(tempPlayerField).html("");
-                $(tempPlayerField).text(currentTotal);
-                totalScore(tempPlayerField);
-                // currentValue = 0;
-                currentTotal = 0;
-                incrementInputCounters(inputCountertemp);
-                checkBonus(inputCountertemp);
-								throwCounter = 1;
-								nextStepGuide(throwCounter);
+            }
+            $(tempPlayerField).html("");
+            $(tempPlayerField).text(currentTotal);
+            // currentValue = 0;
+            currentTotal = 0;
+            incrementInputCounters(inputCountertemp);
+            checkBonus(inputCountertemp);
+            throwCounter = 1;
+            nextStepGuide(throwCounter);
 
 
         }
-     }//);
+    } //);
 
-    function totalScore(playerName) {
+    function totalScore(playerField, playerNumber) {
         var sum = $(playerName).text();
+        var tempPlayerName = "#" + playerNumber + "Name"
+        var userName = $(tempPlayerName).text();
         sum = parseInt(sum, 10);
-        if (gameOver) {
-            var dataString = {
-                userName: "name",
-                totalScore: sum
-            };
-            $.ajax({
-                url: "api/Dbconn/insertTotalScore",
-                type: "POST",
-                dataType: 'json',
-                data: JSON.stringify(dataString),
-                processData: false,
-                contentType: "application/json"
-            });
-            console.log("ajax har körts");
-        }
+
+        var dataString = {
+            userName: userName,
+            totalScore: sum
+        };
+        $.ajax({
+            url: "api/Dbconn/insertTotalScore",
+            type: "POST",
+            dataType: 'json',
+            data: JSON.stringify(dataString),
+            processData: false,
+            contentType: "application/json"
+        });
+        console.log("ajax har körts");
+
 
     }
 
@@ -231,31 +262,31 @@ var tempKey = null;
         switch (stepInt) {
             case 0:
                 {
-                    $(".bg-success").text('Steg 0');
+                    $(".bg-info").text('Steg 0');
                 }
                 break;
 
             case 1:
                 {
-                    $(".bg-success").text('Steg 1');
+                    $(".bg-info").text('Steg 1');
                 }
                 break;
 
             case 2:
                 {
-                    $(".bg-success").text('Steg 2');
+                    $(".bg-info").text('Steg 2');
                 }
                 break;
 
             case 3:
                 {
-                    $(".bg-success").text('Steg 3');
+                    $(".bg-info").text('Steg 3');
                 }
                 break;
 
             default:
                 {
-                    $(".bg-success").text('Ajjabajja!');
+                    $(".bg-info").text('Ajjabajja!');
                 }
         }
 
