@@ -1,6 +1,6 @@
-new Dbconn();
+// new Dbconn();
 $(document).ready(function() {
-
+populateStatLists();
 
     $(".playground").on("click", function(e) {
         if (throwCounter != 0)
@@ -73,12 +73,9 @@ $(document).ready(function() {
         $('#image' + playerImage).addClass('unmarked').removeClass('marked');
         console.log(playerImage + "changed");
 
-        if (activePlayer == 4)
-        {
+        if (activePlayer == 4) {
             activePlayer = 1;
-        }
-        else
-        {
+        } else {
             activePlayer += 1;
         }
 
@@ -159,7 +156,7 @@ $(document).ready(function() {
             console.log(spellogik[f](dices).sum); 
             console.log(spellogik[f](dices).plats);   
         }
-        
+
     }
 
     var dicesToThrow;
@@ -277,15 +274,15 @@ $(document).ready(function() {
             userName: userName,
             totalScore: sum
         };
-        $.ajax({
-            url: "api/Dbconn/insertTotalScore",
-            type: "POST",
-            dataType: 'json',
-            data: JSON.stringify(dataString),
-            processData: false,
-            contentType: "application/json"
-        });
-        console.log("ajax har körts");
+        // $.ajax({
+        //     url: "api/Dbconn/insertTotalScore",
+        //     type: "POST",
+        //     dataType: 'json',
+        //     data: JSON.stringify(dataString),
+        //     processData: false,
+        //     contentType: "application/json"
+        // });
+        // console.log("ajax har körts");
 
 
     }
@@ -403,17 +400,73 @@ $(document).ready(function() {
         }
 
     }
-    
-   function resetDices()
-   {
-        for (i = 1; i <= 5; i++)
-        {
+
+    function resetDices() {
+        for (i = 1; i <= 5; i++) {
             var dice = returnNumberAsWord(i);
-            if ($('#dice' + dice).hasClass('marked')){
+            if ($('#dice' + dice).hasClass('marked')) {
                 $('#dice' + dice).addClass('unmarked').removeClass('marked');
             }
         }
-   }
+    }
+
+
+    function populateStatLists() {
+
+        $.ajax({
+            type: 'GET',
+            url: '/queries/readAll'
+        }).done(function(data) {
+            var totalScoreArray = [];
+            var wongamesArray = [];
+            for(let i = 0; i < data.length; i++){
+              totalScoreArray.push(data[i].totalScore);
+              wongamesArray.push(data[i].wonGames);
+            }
+
+            totalScoreArray.sort(function(a,b){
+                return b-a;
+            });
+            wongamesArray.sort(function(a,b){
+                return b-a;
+            });
+            data.sort(function(a,b){
+                return b-a;
+            });
+
+            for(let i = 0; i < totalScoreArray.length; i++){
+              let playerName;
+
+              if(totalScoreArray[i] == data[i].totalScore){
+                playerName = data[i].userName;
+              }
+              $(".highScoreList").append("<li class='list-group-item'>"+
+    					"<span class='badge'>" + totalScoreArray[i] + "</span>"+ playerName +"</li>");
+              if(i==7){
+                break;
+              }
+
+            }
+            data.sort(function(a,b){
+                return b.wonGames-a.wonGames;
+            });
+            for(let i = 0; i < wongamesArray.length; i++){
+              let playerName;
+
+              if(wongamesArray[i] == data[i].wonGames){
+                playerName = data[i].userName;
+              }
+              $(".wonGamesList").append("<li class='list-group-item'>"+
+    					"<span class='badge'>" + wongamesArray[i] + "</span>"+ playerName +"</li>");
+              if(i==7){
+                break;
+              }
+
+            }
+
+        });
+
+    }
 
 
 });
