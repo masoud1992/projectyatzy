@@ -1,6 +1,6 @@
-new Dbconn();
+// new Dbconn();
 $(document).ready(function() {
-
+testDB();
 
     $(".playground").on("click", function(e) {
         var clickedDice = e.target.id;
@@ -62,20 +62,16 @@ $(document).ready(function() {
 
     var activePlayer = 1;
 
-    function changePlayer(currentPlayer)
-    {
+    function changePlayer(currentPlayer) {
 
         var playerImage = returnNumberAsWord(activePlayer);
 
         $('#image' + playerImage).addClass('unmarked').removeClass('marked');
         console.log(playerImage + "changed");
 
-        if (activePlayer == 4)
-        {
+        if (activePlayer == 4) {
             activePlayer = 1;
-        }
-        else
-        {
+        } else {
             activePlayer += 1;
         }
 
@@ -98,12 +94,12 @@ $(document).ready(function() {
         return dices;
     }
 
-     function getSpelLogik(dices){
-        for(var f in spellogik){
-            console.log(spellogik[f](dices).sum); 
-            console.log(spellogik[f](dices).plats);   
+    function getSpelLogik(dices) {
+        for (var f in spellogik) {
+            console.log(spellogik[f](dices).sum);
+            console.log(spellogik[f](dices).plats);
         }
-        
+
     }
 
     var dicesToThrow;
@@ -245,15 +241,15 @@ $(document).ready(function() {
             userName: userName,
             totalScore: sum
         };
-        $.ajax({
-            url: "api/Dbconn/insertTotalScore",
-            type: "POST",
-            dataType: 'json',
-            data: JSON.stringify(dataString),
-            processData: false,
-            contentType: "application/json"
-        });
-        console.log("ajax har körts");
+        // $.ajax({
+        //     url: "api/Dbconn/insertTotalScore",
+        //     type: "POST",
+        //     dataType: 'json',
+        //     data: JSON.stringify(dataString),
+        //     processData: false,
+        //     contentType: "application/json"
+        // });
+        // console.log("ajax har körts");
 
 
     }
@@ -371,17 +367,25 @@ $(document).ready(function() {
         }
 
     }
-    
-   function resetDices()
-   {
-        for (i = 1; i <= 5; i++)
-        {
+
+    function resetDices() {
+        for (i = 1; i <= 5; i++) {
             var dice = returnNumberAsWord(i);
-            if ($('#dice' + dice).hasClass('marked')){
+            if ($('#dice' + dice).hasClass('marked')) {
                 $('#dice' + dice).addClass('unmarked').removeClass('marked');
             }
         }
-   }
+    }
+
+
+    function testDB() {
+        $.ajax({
+            type: 'GET',
+            url: '/queries/readAll'
+        }).done(function(data) {
+            console.log('reading all the the lorems rows', data);
+        });
+    }
 
 
 });
