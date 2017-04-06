@@ -3,8 +3,11 @@ class Dbconn extends Base {
   constructor(){
     super();
     // this.saveToDb();
+	this.highScoreList();
   }
-
+  
+	var highScore;
+	
   saveToDb(callback){
     // Just an example of how to run a query
     this.db.insertTotalScore({
@@ -12,6 +15,27 @@ class Dbconn extends Base {
         // totalScore: current
       }, callback);
   }
+  
+    highScoreList(){
+	  this.db.getHighScore(data){
+		  highScore = data;
+	  }
+  }
+  
+	updateWonGamesFunction(){
+		this.db.updateWonGames({
+			userName:name,
+			wonGames:wonGames			
+		});
+	}
+	
+	insertNewPlayerFunctio(){
+		this.db.insertNewPlayer({
+			userName:name,
+			totalScore:totScore,
+			wonGames:wongames
+		})
+	}
 
   static get sqlQueries(){
     //
@@ -24,8 +48,20 @@ class Dbconn extends Base {
     return {
       insertTotalScore: `
         INSERT INTO score SET ?
-      `
+      `,
+	  getHighScore: `
+	  SELECT * FROM score
+	  `,
+	  updateWonGames:`
+	  UPDATE score SET wongames = ? WHERE username = ?	  
+	  `
+	  insertNewPlayer:`
+	  INSERT score SET ?
+	  `	  
     }
   }
+  
+  
+
 
 }
