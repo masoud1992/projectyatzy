@@ -3,9 +3,9 @@ var spellogik = {
 	ones: function (dices){
 		var score = 0;
 
-		for(var d in dices){
-			if(d == 1){
-				score += d;
+		for(let d = 0; d < dices.length; d++){
+			if(dices[d] == 1){
+				score += dices[d];
 			}
 		}
 		return {sum: score, plats: "score1"};
@@ -14,10 +14,10 @@ var spellogik = {
 	twos: function (dices){
 		var score = 0;
 
-		for(var d in dices){
-			if(d == 2){
-				score += d;
-			}
+		for(let d = 0; d < dices.length; d++){
+            if(dices[d] == 2){
+                score += dices[d];
+            }
 		}
 		return {sum: score, plats: "score2"};
 	}, 
@@ -25,10 +25,10 @@ var spellogik = {
 	threes: function (dices){
 		var score = 0;
 
-		for(var d in dices){
-			if(d == 3){
-				score += d;
-			}
+		for(let d = 0; d < dices.length; d++){
+            if(dices[d] == 3){
+                score += dices[d];
+            }
 		}
 		return {sum: score, plats: "score3"};
 	}, 
@@ -36,10 +36,10 @@ var spellogik = {
 	fours: function (dices){
 		var score = 0;
 
-		for(var d in dices){
-			if(d == 4){
-				score += d;
-			}
+		for(let d = 0; d < dices.length; d++){
+            if(dices[d] == 4){
+                score += dices[d];
+            }
 		}
 		return {sum: score, plats: "score4"};
 	}, 
@@ -47,10 +47,10 @@ var spellogik = {
 	fives: function (dices){
 		var score = 0;
 
-		for(var d in dices){
-			if(d == 5){
-				score += d;
-			}
+		for(let d = 0; d < dices.length; d++){
+            if(dices[d] == 5){
+                score += dices[d];
+            }
 		}
 		return {sum: score, plats: "score5"};
 	}, 
@@ -58,11 +58,12 @@ var spellogik = {
 	sixes: function (dices){
 		var score = 0;
 
-		for(var d in dices){
-			if(d == 6){
-				score += d;
-			}
-		}
+		for(let d = 0; d < dices.length; d++){
+            if(dices[d] == 6){
+                score += dices[d];
+            }
+        }
+
 		return {sum: score, plats: "score6"};
 	},  
 
@@ -94,7 +95,7 @@ var spellogik = {
             
             score = tempArray[0]+tempArray[0];
                 
-        return score;
+        return {sum: score, plats: "score7"};
     },
 
     twopair: function (dices){
@@ -124,7 +125,7 @@ var spellogik = {
             	score = tempArray[0] + tempArray[0] + tempArray[1] + tempArray[1];
             }
     
-        return score;
+        return {sum: score, plats: "score8"};
     },
 
     threeOfAKind: function (dices){
@@ -153,7 +154,7 @@ var spellogik = {
             	score = tempArray[0] + tempArray[0] + tempArray[0];
             }
     
-        return score;
+        return {sum: score, plats: "score9"};
     },
 
     fourOfAKind: function (dices){
@@ -182,7 +183,7 @@ var spellogik = {
             	score = tempArray[0] * 4;
             }
     
-        return score;
+        return {sum: score, plats: "score10"};
     },
 
     smallStraight: function(dices){
@@ -215,7 +216,7 @@ var spellogik = {
             score = 15;
         }
         
-        return score;
+        return {sum: score, plats: "score11"};
     },
 
     largeStraight: function(dices){
@@ -248,7 +249,7 @@ var spellogik = {
             score = 20;
         }
         
-        return score;
+        return {sum: score, plats: "score12"};
     },
 
     fullHouse: function(dices){
@@ -264,16 +265,16 @@ var spellogik = {
             score = 28;
         }
           
-        return score;
+        return {sum: score, plats: "score13"};
        
     },
 
     chance: function(dices){
     	var score = 0;
-    	for(var d in dices){
-    		score += d;
+    	for(let d = 0; d < dices.length; d++){
+    		score += dices[d];
     	}
-    	return score;
+    	return {sum: score, plats: "score14"};
     },
 
     yatzy: function(dices){
@@ -284,7 +285,6 @@ var spellogik = {
 
         for(var i = 0; i < dices.length; i++){
             if(dices[i] == dices[0]){
-                console.log("d lika med", i);
                 
             }
             else{
@@ -296,8 +296,7 @@ var spellogik = {
         if(isYatzy == true){
             score = 50;
         }
-        console.log(score);
-        return score;
+        return {sum: score, plats: "score15"};
     }
 
 

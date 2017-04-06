@@ -1,6 +1,7 @@
 new Dbconn();
 $(document).ready(function() {
 
+<<<<<<< HEAD
     /*function test() {
         var dices = [1, 1, 1, 1, 1];
         var score = null;
@@ -25,6 +26,9 @@ $(document).ready(function() {
     }*/
 
 	//markering av valda tärningar
+=======
+
+>>>>>>> Magnus
     $(".playground").on("click", function(e) {
         var clickedDice = e.target.id;
 
@@ -122,8 +126,11 @@ $(document).ready(function() {
     }
 
      function getSpelLogik(dices){
-        console.log(spellogik.ones(dices));
-        console.log(dices);
+        for(var f in spellogik){
+            console.log(spellogik[f](dices).sum); 
+            console.log(spellogik[f](dices).plats);   
+        }
+        
     }
 
     var dicesToThrow;
@@ -151,7 +158,6 @@ $(document).ready(function() {
             dicesToThrow = $(".playground .unmarked").length;
             displayDice(throwDice(dicesToThrow));
             nextStepGuide(throwCounter);
-            //test();
 
         }
         if (gameOver) {
