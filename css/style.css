@@ -37,6 +37,12 @@ input{
 	border-radius: 5px;
 	padding:0px;
 }
+.chosen{
+	color:black;
+}
+.unchosen{
+	color:red;
+}
 @media screen and (min-width: 1200px){
     .col-xl-2, .playerImage, .playground{
 		padding-top:15px;

@@ -1,5 +1,6 @@
-new Dbconn();
+// new Dbconn();
 $(document).ready(function() {
+<<<<<<< HEAD
 
 <<<<<<< HEAD
     /*function test() {
@@ -7,6 +8,9 @@ $(document).ready(function() {
         var score = null;
         var reference = dices[0];
         var isYatzy = true;
+=======
+populateStatLists();
+>>>>>>> masoud
 
         for (var i = 0; i < dices.length; i++) {
             if (dices[i] == dices[0]) {
@@ -30,46 +34,49 @@ $(document).ready(function() {
 
 >>>>>>> Magnus
     $(".playground").on("click", function(e) {
-        var clickedDice = e.target.id;
+        if (throwCounter != 0)
+        {
+            var clickedDice = e.target.id;
 
-        switch (clickedDice) {
-            case "diceOne":
-                if ($('#diceOne').hasClass('unmarked')) {
-                    $('#diceOne').addClass('marked').removeClass('unmarked');
-                } else {
-                    $('#diceOne').addClass('unmarked').removeClass('marked');
-                }
-                break;
-            case "diceTwo":
-                if ($('#diceTwo').hasClass('unmarked')) {
-                    $('#diceTwo').addClass('marked').removeClass('unmarked');
-                } else {
-                    $('#diceTwo').addClass('unmarked').removeClass('marked');
-                }
-                break;
-            case "diceThree":
-                if ($('#diceThree').hasClass('unmarked')) {
-                    $('#diceThree').addClass('marked').removeClass('unmarked');
-                } else {
-                    $('#diceThree').addClass('unmarked').removeClass('marked');
-                }
-                break;
-            case "diceFour":
-                if ($('#diceFour').hasClass('unmarked')) {
-                    $('#diceFour').addClass('marked').removeClass('unmarked');
-                } else {
-                    $('#diceFour').addClass('unmarked').removeClass('marked');
-                }
-                break;
-            case "diceFive":
-                if ($('#diceFive').hasClass('unmarked')) {
-                    $('#diceFive').addClass('marked').removeClass('unmarked');
-                } else {
-                    $('#diceFive').addClass('unmarked').removeClass('marked');
-                }
-                break;
-            default:
-                break;
+            switch (clickedDice) {
+                case "diceOne":
+                    if ($('#diceOne').hasClass('unmarked')) {
+                        $('#diceOne').addClass('marked').removeClass('unmarked');
+                    } else {
+                        $('#diceOne').addClass('unmarked').removeClass('marked');
+                    }
+                    break;
+                case "diceTwo":
+                    if ($('#diceTwo').hasClass('unmarked')) {
+                        $('#diceTwo').addClass('marked').removeClass('unmarked');
+                    } else {
+                        $('#diceTwo').addClass('unmarked').removeClass('marked');
+                    }
+                    break;
+                case "diceThree":
+                    if ($('#diceThree').hasClass('unmarked')) {
+                        $('#diceThree').addClass('marked').removeClass('unmarked');
+                    } else {
+                        $('#diceThree').addClass('unmarked').removeClass('marked');
+                    }
+                    break;
+                case "diceFour":
+                    if ($('#diceFour').hasClass('unmarked')) {
+                        $('#diceFour').addClass('marked').removeClass('unmarked');
+                    } else {
+                        $('#diceFour').addClass('unmarked').removeClass('marked');
+                    }
+                    break;
+                case "diceFive":
+                    if ($('#diceFive').hasClass('unmarked')) {
+                        $('#diceFive').addClass('marked').removeClass('unmarked');
+                    } else {
+                        $('#diceFive').addClass('unmarked').removeClass('marked');
+                    }
+                    break;
+                default:
+                    break;
+            }
         }
 
     });
@@ -89,7 +96,7 @@ $(document).ready(function() {
 
     var activePlayer = 1;
 
-    function changePlayer(currentPlayer)
+    function changePlayer()
     {
 
         var playerImage = returnNumberAsWord(activePlayer);
@@ -97,12 +104,9 @@ $(document).ready(function() {
         $('#image' + playerImage).addClass('unmarked').removeClass('marked');
         console.log(playerImage + "changed");
 
-        if (activePlayer == 4)
-        {
+        if (activePlayer == 4) {
             activePlayer = 1;
-        }
-        else
-        {
+        } else {
             activePlayer += 1;
         }
 
@@ -116,21 +120,74 @@ $(document).ready(function() {
 
         var dices = [];
 
-
         for (var i = 0; i < dicesToThrow; i++) {
             var randomNum = Math.floor((Math.random() * 6) + 1);
             dices.push(randomNum);
         }
+
+        console.log('Antal markerade: ' + $('.playground .marked').length);
+
+        for (i = 1; i <= $('.playground .marked').length; i++)
+        {
+            var dice = returnNumberAsWord(i);
+
+            for (i = 1; i <= 5; i++)
+            {
+                dice = returnNumberAsWord(i);
+
+                if ($('#dice' + dice).hasClass('marked'))
+                {
+                    var diceName = $('#dice' + dice).attr('src');
+                    var diceText = diceName.substr(diceName.length - 5);
+
+                    diceText = diceText.substr(0, 1);
+
+                    console.log('diceText = ' + diceText);
+
+                    var diceNumber = parseInt(diceText);
+
+                    //lägg till siffran på rätt index i dices
+
+                    dices.push(diceNumber);
+                }
+            }
+        }
+
+        console.log('Dices: ' + dices)
+
         getSpelLogik(dices);
         return dices;
     }
 
+    $(".table").on("click", function(e){
+        var plats = e.target.id;
+        var score = plats.substr(plats.length - 1);
+        
+        if(('#' + e.target.id) == ('#player' + activePlayer + 'score' + score) && throwCounter > 0)
+        {  
+            if($('#'+e.target.id).hasClass('unchosen'))
+            {
+                $('#'+e.target.id).addClass('chosen').removeClass('unchosen');
+                endTurn(e.target.id);
+            }
+        };
+
+    });
+
+
      function getSpelLogik(dices){
-        for(var f in spellogik){
+        for(var f in spellogik){ 
+
+            
+            if($('#player' + activePlayer + spellogik[f](dices).plats).hasClass('unchosen')){
+                    
+                    $('#player' + activePlayer + spellogik[f](dices).plats).text(spellogik[f](dices).sum);
+                
+                }
             console.log(spellogik[f](dices).sum); 
             console.log(spellogik[f](dices).plats);   
         }
-        
+
     }
 
     var dicesToThrow;
@@ -166,12 +223,20 @@ $(document).ready(function() {
 
     });
 
-    function endTurn() {
-        //reset counter
-        throwCounter = 0;
-        //remove old dices from element
+    function endTurn(plats) {
+        console.log(plats);
+        for(i=0;i<=15;i++){
+            if($("#player"+activePlayer+"score"+i).hasClass("unchosen")){
+                 
+                 $("#player"+activePlayer+"score"+i).text("");
 
+             }
+        }
+        resetDices();
+        throwCounter=0;
         nextStepGuide(throwCounter);
+        updateTotalScore();
+        changePlayer();
     }
 
     function displayDice(dices) {
@@ -206,61 +271,29 @@ $(document).ready(function() {
             case 5:
                 return 'Five';
                 break;
+            case 6:
+                return 'Six';
+                break;
             default:
                 break;
         }
     }
 
-    //listener on inputfields blur
-    var tempKey = null;
-    document.onchange = function(event) {
+    function updateTotalScore()
+    {
+        var totalScore = 0;
 
-        event = event || window.event;
-        var getId = null;
-        var key = null;
-
-        getId = event.target.id;
-        //get which key was pressed
-        key = event.target.value;
-
-        //  if(key<10){
-        // 	 tempKey = parseInt(key, 10);
-        //  }
-        // removes excess strings
-        // key = key.replace(/\D/g, '');
-        //make key an int
-        key = parseInt(key, 10);
-        if (key >= 0 && key <= 10000) {
-            // $(".rollDice").unbind('click').click(function() {
-            var currentValue = 0;
-            // currentValue = document.getElementById(getId).value;
-            var tempPlayerField = String(getId);
-            tempPlayerField = tempPlayerField.substring(0, tempPlayerField.indexOf('s'));
-            inputCountertemp = tempPlayerField;
-            tempPlayerField = "#" + tempPlayerField + "Total";
-            var currentTotal = 0;
-            currentTotal = $(tempPlayerField).text();
-            // currentValue = parseInt(currentValue, 10);
-            currentTotal = parseInt(currentTotal, 10);
-            if (tempKey != null) {
-                currentTotal = currentTotal - tempKey + key;
-            } else {
-                currentTotal = currentTotal + key;
+        for (i = 0; i <= 15; i++)
+        {
+            if ($('#player' + activePlayer + 'score' + i).hasClass('chosen'))
+            {
+                var score = parseInt($('#player' + activePlayer + 'score' + i).text(), 10);
+                totalScore += score;
             }
-            $(tempPlayerField).html("");
-            $(tempPlayerField).text(currentTotal);
-            // currentValue = 0;
-            currentTotal = 0;
-            incrementInputCounters(inputCountertemp);
-            checkBonus(inputCountertemp);
-            throwCounter = 0;
-            nextStepGuide(throwCounter);
-            console.log("activePlayer = " + activePlayer);
-            changePlayer(activePlayer);
-            resetDices();
-            console.log('reset dices')
         }
-    } //);
+
+        $('#player' + activePlayer + 'Total').text(totalScore);
+    }
 
     function totalScore(playerField, playerNumber) {
         var sum = $(playerNumber).text();
@@ -272,15 +305,15 @@ $(document).ready(function() {
             userName: userName,
             totalScore: sum
         };
-        $.ajax({
-            url: "api/Dbconn/insertTotalScore",
-            type: "POST",
-            dataType: 'json',
-            data: JSON.stringify(dataString),
-            processData: false,
-            contentType: "application/json"
-        });
-        console.log("ajax har körts");
+        // $.ajax({
+        //     url: "api/Dbconn/insertTotalScore",
+        //     type: "POST",
+        //     dataType: 'json',
+        //     data: JSON.stringify(dataString),
+        //     processData: false,
+        //     contentType: "application/json"
+        // });
+        // console.log("ajax har körts");
 
 
     }
@@ -398,17 +431,73 @@ $(document).ready(function() {
         }
 
     }
-    
-   function resetDices()
-   {
-        for (i = 1; i <= 5; i++)
-        {
+
+    function resetDices() {
+        for (i = 1; i <= 5; i++) {
             var dice = returnNumberAsWord(i);
-            if ($('#dice' + dice).hasClass('marked')){
+            if ($('#dice' + dice).hasClass('marked')) {
                 $('#dice' + dice).addClass('unmarked').removeClass('marked');
             }
         }
-   }
+    }
+
+
+    function populateStatLists() {
+
+        $.ajax({
+            type: 'GET',
+            url: '/queries/readAll'
+        }).done(function(data) {
+            var totalScoreArray = [];
+            var wongamesArray = [];
+            for(let i = 0; i < data.length; i++){
+              totalScoreArray.push(data[i].totalScore);
+              wongamesArray.push(data[i].wonGames);
+            }
+
+            totalScoreArray.sort(function(a,b){
+                return b-a;
+            });
+            wongamesArray.sort(function(a,b){
+                return b-a;
+            });
+            data.sort(function(a,b){
+                return b-a;
+            });
+
+            for(let i = 0; i < totalScoreArray.length; i++){
+              let playerName;
+
+              if(totalScoreArray[i] == data[i].totalScore){
+                playerName = data[i].userName;
+              }
+              $(".highScoreList").append("<li class='list-group-item'>"+
+    					"<span class='badge'>" + totalScoreArray[i] + "</span>"+ playerName +"</li>");
+              if(i==7){
+                break;
+              }
+
+            }
+            data.sort(function(a,b){
+                return b.wonGames-a.wonGames;
+            });
+            for(let i = 0; i < wongamesArray.length; i++){
+              let playerName;
+
+              if(wongamesArray[i] == data[i].wonGames){
+                playerName = data[i].userName;
+              }
+              $(".wonGamesList").append("<li class='list-group-item'>"+
+    					"<span class='badge'>" + wongamesArray[i] + "</span>"+ playerName +"</li>");
+              if(i==7){
+                break;
+              }
+
+            }
+
+        });
+
+    }
 
 
 });
