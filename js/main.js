@@ -1,6 +1,6 @@
 // new Dbconn();
 $(document).ready(function() {
-testDB();
+populateStatLists();
 
     $(".playground").on("click", function(e) {
         var clickedDice = e.target.id;
@@ -378,13 +378,61 @@ testDB();
     }
 
 
-    function testDB() {
+    function populateStatLists() {
+
         $.ajax({
             type: 'GET',
             url: '/queries/readAll'
         }).done(function(data) {
-            console.log('reading all the the lorems rows', data);
+            var totalScoreArray = [];
+            var wongamesArray = [];
+            for(let i = 0; i < data.length; i++){
+              totalScoreArray.push(data[i].totalScore);
+              wongamesArray.push(data[i].wonGames);
+            }
+
+            totalScoreArray.sort(function(a,b){
+                return b-a;
+            });
+            wongamesArray.sort(function(a,b){
+                return b-a;
+            });
+            data.sort(function(a,b){
+                return b-a;
+            });
+
+            for(let i = 0; i < totalScoreArray.length; i++){
+              let playerName;
+
+              if(totalScoreArray[i] == data[i].totalScore){
+                playerName = data[i].userName;
+              }
+              $(".highScoreList").append("<li class='list-group-item'>"+
+    					"<span class='badge'>" + totalScoreArray[i] + "</span>"+ playerName +"</li>");
+              if(i==7){
+                break;
+              }
+
+            }
+            data.sort(function(a,b){
+                return b.wonGames-a.wonGames;
+            });
+            for(let i = 0; i < wongamesArray.length; i++){
+              let playerName;
+
+              if(wongamesArray[i] == data[i].wonGames){
+                playerName = data[i].userName;
+              }
+              $(".wonGamesList").append("<li class='list-group-item'>"+
+    					"<span class='badge'>" + wongamesArray[i] + "</span>"+ playerName +"</li>");
+              if(i==7){
+                break;
+              }
+
+            }
+
         });
+
     }
 
 
