@@ -438,7 +438,7 @@ $(document).ready(function() {
                 return b - a;
             });
             data.sort(function(a, b) {
-                return b - a;
+                return b.totalScore - a.totalScore;
             });
 
             for (let i = 0; i < totalScoreArray.length; i++) {
