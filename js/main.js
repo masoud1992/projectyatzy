@@ -104,7 +104,7 @@ populateStatLists();
 
     var dicesToThrow;
     $(".rollDice").click(function() {
-
+		getPlayerNamesToArray();
         if (throwCounter == 3) {
 
             if ($('#diceOne').hasClass('marked')) {
@@ -398,12 +398,13 @@ populateStatLists();
                 return b-a;
             });
             data.sort(function(a,b){
-                return b-a;
+                return b.totalScore-a.totalScore;
             });
 
             for(let i = 0; i < totalScoreArray.length; i++){
               let playerName;
-
+			console.log("Totalscorearray", totalScoreArray[i]);
+			console.log("Data I", data[i].totalScore);
               if(totalScoreArray[i] == data[i].totalScore){
                 playerName = data[i].userName;
               }
@@ -434,6 +435,36 @@ populateStatLists();
         });
 
     }
+	
+	function getPlayerNamesToArray(){		
+		var playersarray = [];
+		var j = 0;
+		$(".playerNameInput").each(function(){
+			playersarray[j]=$(this).val();
+			j++;
+		});
+		console.log(playersarray);
+	}
+	
 
 
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
