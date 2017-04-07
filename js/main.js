@@ -1,6 +1,5 @@
 // new Dbconn();
 $(document).ready(function() {
-populateStatLists();
 
     $(".playground").on("click", function(e) {
         if (throwCounter != 0)
