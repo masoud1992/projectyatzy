@@ -1,6 +1,12 @@
 // new Dbconn();
 $(document).ready(function() {
-populateStatLists();
+  var globalSelectFromDB;
+  // saveTotalscoreToDb();
+    populateStatLists();//.done(function(){
+    //       saveTotalscoreToDb();
+    //     });
+
+
 
     $(".playground").on("click", function(e) {
         if (throwCounter != 0)
@@ -131,9 +137,9 @@ populateStatLists();
     $(".table").on("click", function(e){
         var plats = e.target.id;
         var score = plats.substr(plats.length - 1);
-        
+
         if(('#' + e.target.id) == ('#player' + activePlayer + 'score' + score) && throwCounter > 0)
-        {  
+        {
             if($('#'+e.target.id).hasClass('unchosen'))
             {
                 $('#'+e.target.id).addClass('chosen').removeClass('unchosen');
@@ -145,16 +151,16 @@ populateStatLists();
 
 
      function getSpelLogik(dices){
-        for(var f in spellogik){ 
+        for(var f in spellogik){
 
-            
+
             if($('#player' + activePlayer + spellogik[f](dices).plats).hasClass('unchosen')){
-                    
+
                     $('#player' + activePlayer + spellogik[f](dices).plats).text(spellogik[f](dices).sum);
-                
+
                 }
-            console.log(spellogik[f](dices).sum); 
-            console.log(spellogik[f](dices).plats);   
+            console.log(spellogik[f](dices).sum);
+            console.log(spellogik[f](dices).plats);
         }
 
     }
@@ -196,7 +202,7 @@ populateStatLists();
         console.log(plats);
         for(i=0;i<=15;i++){
             if($("#player"+activePlayer+"score"+i).hasClass("unchosen")){
-                 
+
                  $("#player"+activePlayer+"score"+i).text("");
 
              }
@@ -275,14 +281,14 @@ populateStatLists();
             totalScore: sum
         };
         // $.ajax({
-        //     url: "api/Dbconn/insertTotalScore",
-        //     type: "POST",
-        //     dataType: 'json',
-        //     data: JSON.stringify(dataString),
-        //     processData: false,
-        //     contentType: "application/json"
+        //   type: 'POST',
+        //   url:'/queries/insertTotalScore',
+        //   contentType: "application/json",
+        //   data: JSON.stringify(dataString),
+        //   contentType: "application/json"
+        // }).done(function(data){
+        //   console.log(data);
         // });
-        // console.log("ajax har körts");
 
 
     }
@@ -410,58 +416,58 @@ populateStatLists();
         }
     }
 
-
-    function populateStatLists() {
+  function populateStatLists() {
 
         $.ajax({
             type: 'GET',
             url: '/queries/readAll'
         }).done(function(data) {
+            globalSelectFromDB = data;
+            saveTotalscoreToDb();
             var totalScoreArray = [];
             var wongamesArray = [];
-            for(let i = 0; i < data.length; i++){
-              totalScoreArray.push(data[i].totalScore);
-              wongamesArray.push(data[i].wonGames);
+            for (let i = 0; i < data.length; i++) {
+                totalScoreArray.push(data[i].totalScore);
+                wongamesArray.push(data[i].wonGames);
             }
 
-            totalScoreArray.sort(function(a,b){
-                return b-a;
+            totalScoreArray.sort(function(a, b) {
+                return b - a;
             });
-            wongamesArray.sort(function(a,b){
-                return b-a;
+            wongamesArray.sort(function(a, b) {
+                return b - a;
             });
-            data.sort(function(a,b){
-                return b.totalScore-a.totalScore;
+            data.sort(function(a, b) {
+                return b - a;
             });
 
-            for(let i = 0; i < totalScoreArray.length; i++){
-              let playerName;
-			console.log("Totalscorearray", totalScoreArray[i]);
-			console.log("Data I", data[i].totalScore);
-              if(totalScoreArray[i] == data[i].totalScore){
-                playerName = data[i].userName;
-              }
-              $(".highScoreList").append("<li class='list-group-item'>"+
-    					"<span class='badge'>" + totalScoreArray[i] + "</span>"+ playerName +"</li>");
-              if(i==7){
-                break;
-              }
+            for (let i = 0; i < totalScoreArray.length; i++) {
+                let playerName;
+
+                if (totalScoreArray[i] == data[i].totalScore) {
+                    playerName = data[i].userName;
+                }
+                $(".highScoreList").append("<li class='list-group-item'>" +
+                    "<span class='badge'>" + totalScoreArray[i] + "</span>" + playerName + "</li>");
+                if (i == 7) {
+                    break;
+                }
 
             }
-            data.sort(function(a,b){
-                return b.wonGames-a.wonGames;
+            data.sort(function(a, b) {
+                return b.wonGames - a.wonGames;
             });
-            for(let i = 0; i < wongamesArray.length; i++){
-              let playerName;
+            for (let i = 0; i < wongamesArray.length; i++) {
+                let playerName;
 
-              if(wongamesArray[i] == data[i].wonGames){
-                playerName = data[i].userName;
-              }
-              $(".wonGamesList").append("<li class='list-group-item'>"+
-    					"<span class='badge'>" + wongamesArray[i] + "</span>"+ playerName +"</li>");
-              if(i==7){
-                break;
-              }
+                if (wongamesArray[i] == data[i].wonGames) {
+                    playerName = data[i].userName;
+                }
+                $(".wonGamesList").append("<li class='list-group-item'>" +
+                    "<span class='badge'>" + wongamesArray[i] + "</span>" + playerName + "</li>");
+                if (i == 7) {
+                    break;
+                }
 
             }
 
@@ -480,6 +486,75 @@ populateStatLists();
 	}
 	
 
+    function saveTotalscoreToDb(){
+
+      var playersArray = [];
+      var scoreArray = [];
+      		var j = 0;
+      		$(".playerNameInput").each(function(){
+      			playersArray[j]=$(this).val();
+      			j++;
+      		});
+          j=0;
+          $(".playerScoreTestTotal").each(function(){
+      			scoreArray[j]=$(this).text();
+      			j++;
+      		});
+
+
+      for (let i = 0; i < 4; i++) {
+        let tempName = playersArray[i];
+        let tempScore = scoreArray[i];
+        console.log(globalSelectFromDB);
+        // if(tempName != globalSelectFromDB.userName){
+        for (let j = 0; j < globalSelectFromDB.length; j++) {
+          console.log(globalSelectFromDB[j].userName);
+          console.log(tempName);
+          if(tempName == globalSelectFromDB[j].userName){
+            if(globalSelectFromDB[j].totalScore > tempScore){
+              tempScore= globalSelectFromDB[j].totalScore;
+            }
+            let tempWonGames = parseInt(globalSelectFromDB[j].wonGames,10);
+            tempWonGames+=1;
+            var dataString = {
+                userName: tempName,
+                totalScore: parseInt(tempScore,10),
+                wonGames: tempWonGames
+            };
+            console.log("update",dataString);
+            $.ajax({
+              type: 'POST',
+              url:'/queries/updateWonGames',
+              contentType: "application/json",
+              data: JSON.stringify(dataString),
+              contentType: "application/json"
+            }).done(function(data){
+              console.log("update ajax",data);
+            });
+             break;
+          }else {
+            var dataString = {
+                userName: tempName,
+                totalScore: parseInt(tempScore,10),
+                wonGames: 0
+            };
+            console.log("insert",dataString);
+
+            $.ajax({
+              type: 'POST',
+              url:'/queries/insertTotalScore',
+              contentType: "application/json",
+              data: JSON.stringify(dataString),
+              contentType: "application/json"
+            }).done(function(data){
+              console.log("insert ajax",data);
+            });
+          }
+          break;
+        }
+// }
+        }
+    }
 
 });
 
