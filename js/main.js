@@ -90,54 +90,54 @@ $(document).ready(function() {
         console.log(playerImage + 'changed');
     }
 
-    function throwDice(dicesToThrow) {
-        throwCounter++;
+    function throwDice() {
+        
+		throwCounter++;
+		var dices = [1,2,3,4,5];
+		
+		for(i=1;i<=5;i++){
+			
+			var diceNumber = returnNumberAsWord(i);
+			
+			if($('#dice'+diceNumber).hasClass('unmarked')){
+				
+				var randomNumber = Math.floor((Math.random()*6)+1);
+				dices.splice(i-1,1,randomNumber);
+				
+				
+			}
+			else if($('#dice'+diceNumber).hasClass('marked')){
+				
+				console.log('markerad position på tärning: '+i);
+				var diceText=$('#dice'+diceNumber).attr('src');
+				diceText=diceText.substr(-5,1);
+				var diceValue=parseInt(diceText);
+				
+				dices.splice(i-1,1,diceValue);
+			}
+			
+		}
 
-        var dices = [];
-
-        for (var i = 0; i < dicesToThrow; i++) {
-            var randomNum = Math.floor((Math.random() * 6) + 1);
-            dices.push(randomNum);
-        }
-
-        console.log('Antal markerade: ' + $('.playground .marked').length);
-
-        for (i = 1; i <= $('.playground .marked').length; i++)
-        {
-            var dice = returnNumberAsWord(i);
-
-            for (i = 1; i <= 5; i++)
-            {
-                dice = returnNumberAsWord(i);
-
-                if ($('#dice' + dice).hasClass('marked'))
-                {
-                    var diceName = $('#dice' + dice).attr('src');
-                    var diceText = diceName.substr(diceName.length - 5);
-
-                    diceText = diceText.substr(0, 1);
-
-                    console.log('diceText = ' + diceText);
-
-                    var diceNumber = parseInt(diceText);
-
-                    //lägg till siffran på rätt index i dices
-
-                    dices.push(diceNumber);
-                }
-            }
-        }
-
-        console.log('Dices: ' + dices)
-
-        getSpelLogik(dices);
+		console.log('Initial array ' + dices);
+		var tempArray = dices;
+		
+        getSpelLogik(tempArray);
+		
+		console.log('Efter spellogik, dices: ' + dices);
+		console.log('Efter spellogik, tempArray: ' + tempArray);
+		
         return dices;
     }
 
     $(".table").on("click", function(e){
         var plats = e.target.id;
         var score = plats.substr(plats.length - 1);
-
+        var overNineScore = plats.substr(plats.length - 2);
+		
+		overNineScore=overNineScore.substr(0,1);
+		if(overNineScore==1){
+			score=overNineScore+score;
+		}
         if(('#' + e.target.id) == ('#player' + activePlayer + 'score' + score) && throwCounter > 0)
         {
             if($('#'+e.target.id).hasClass('unchosen'))
@@ -151,18 +151,20 @@ $(document).ready(function() {
 
 
      function getSpelLogik(dices){
-        for(var f in spellogik){
-
-
-            if($('#player' + activePlayer + spellogik[f](dices).plats).hasClass('unchosen')){
-
-                    $('#player' + activePlayer + spellogik[f](dices).plats).text(spellogik[f](dices).sum);
-
-                }
-            console.log(spellogik[f](dices).sum);
-            console.log(spellogik[f](dices).plats);
+		 
+		
+        for(var f in spellogik){ 
+			console.log('getSpelLogik före: ' + dices);
+			if($('#player' + activePlayer + spellogik[f](dices).plats).hasClass('unchosen'))
+			{
+				$('#player' + activePlayer + spellogik[f](dices).plats).text(spellogik[f](dices).sum);
+            }
+			console.log('getSpelLogik efter: ' + dices);
+            console.log(spellogik[f](dices).sum); 
+            console.log(spellogik[f](dices).plats);   
         }
-
+		
+		
     }
 
     var dicesToThrow;
@@ -187,10 +189,8 @@ $(document).ready(function() {
             }
 
         } else {
-            dicesToThrow = $(".playground .unmarked").length;
-            displayDice(throwDice(dicesToThrow));
+            displayDice(throwDice());
             nextStepGuide(throwCounter);
-
         }
         if (gameOver) {
             totalScore(tempPlayerField, inputCountertemp);
@@ -217,15 +217,15 @@ $(document).ready(function() {
     function displayDice(dices) {
 
         var currentDice = 0;
-
+		console.log('Grafisk array: '+dices);
         for (i = 1; i <= 5; i++) {
             var diceImage = returnNumberAsWord(i);
+			var number = dices[currentDice];
+               
+			$('#dice' + diceImage).attr("src", "images/dices/" + number + ".png");
 
-            if ($('#dice' + diceImage).hasClass('unmarked')) {
-                var number = dices[currentDice];
-                $('#dice' + diceImage).attr("src", "images/dices/" + number + ".png");
-                currentDice += 1;
-            }
+			currentDice += 1;
+			console.log('currentdices: '+ currentDice);
         }
     }
 
