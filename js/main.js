@@ -1,5 +1,7 @@
 // new Dbconn();
 $(document).ready(function() {
+    populateStatLists();
+    test();
 
     $(".playground").on("click", function(e) {
         if (throwCounter != 0)
@@ -274,14 +276,14 @@ $(document).ready(function() {
             totalScore: sum
         };
         // $.ajax({
-        //     url: "api/Dbconn/insertTotalScore",
-        //     type: "POST",
-        //     dataType: 'json',
-        //     data: JSON.stringify(dataString),
-        //     processData: false,
-        //     contentType: "application/json"
+        //   type: 'POST',
+        //   url:'/queries/insertTotalScore',
+        //   contentType: "application/json",
+        //   data: JSON.stringify(dataString),
+        //   contentType: "application/json"
+        // }).done(function(data){
+        //   console.log(data);
         // });
-        // console.log("ajax har körts");
 
 
     }
@@ -409,6 +411,34 @@ $(document).ready(function() {
         }
     }
 
+function test(){
+
+  for (let i = 1; i < 5; i++) {
+    let tempName = $("#player"+i+"Name").text();
+    // let tempName = document.getElementById("#player"+i+"Name").value;
+
+    console.log("username",tempName);
+    // let tempScore = parseInt($("#player"+i+"Total").val(),10);
+    let tempScore = $("#player"+i+"Total").text();
+    console.log("score",tempScore);
+
+  var dataString = {
+      userName: tempName,
+      totalScore: tempScore,
+      wonGames: 0
+  };
+  console.log("datastring",dataString);
+  // $.ajax({
+  //   type: 'POST',
+  //   url:'/queries/insertTotalScore',
+  //   contentType: "application/json",
+  //   data: JSON.stringify(dataString),
+  //   contentType: "application/json"
+  // }).done(function(data){
+  //   console.log(data);
+  // });
+    }
+}
 
     function populateStatLists() {
 
@@ -418,48 +448,48 @@ $(document).ready(function() {
         }).done(function(data) {
             var totalScoreArray = [];
             var wongamesArray = [];
-            for(let i = 0; i < data.length; i++){
-              totalScoreArray.push(data[i].totalScore);
-              wongamesArray.push(data[i].wonGames);
+            for (let i = 0; i < data.length; i++) {
+                totalScoreArray.push(data[i].totalScore);
+                wongamesArray.push(data[i].wonGames);
             }
 
-            totalScoreArray.sort(function(a,b){
-                return b-a;
+            totalScoreArray.sort(function(a, b) {
+                return b - a;
             });
-            wongamesArray.sort(function(a,b){
-                return b-a;
+            wongamesArray.sort(function(a, b) {
+                return b - a;
             });
-            data.sort(function(a,b){
-                return b-a;
+            data.sort(function(a, b) {
+                return b - a;
             });
 
-            for(let i = 0; i < totalScoreArray.length; i++){
-              let playerName;
+            for (let i = 0; i < totalScoreArray.length; i++) {
+                let playerName;
 
-              if(totalScoreArray[i] == data[i].totalScore){
-                playerName = data[i].userName;
-              }
-              $(".highScoreList").append("<li class='list-group-item'>"+
-    					"<span class='badge'>" + totalScoreArray[i] + "</span>"+ playerName +"</li>");
-              if(i==7){
-                break;
-              }
+                if (totalScoreArray[i] == data[i].totalScore) {
+                    playerName = data[i].userName;
+                }
+                $(".highScoreList").append("<li class='list-group-item'>" +
+                    "<span class='badge'>" + totalScoreArray[i] + "</span>" + playerName + "</li>");
+                if (i == 7) {
+                    break;
+                }
 
             }
-            data.sort(function(a,b){
-                return b.wonGames-a.wonGames;
+            data.sort(function(a, b) {
+                return b.wonGames - a.wonGames;
             });
-            for(let i = 0; i < wongamesArray.length; i++){
-              let playerName;
+            for (let i = 0; i < wongamesArray.length; i++) {
+                let playerName;
 
-              if(wongamesArray[i] == data[i].wonGames){
-                playerName = data[i].userName;
-              }
-              $(".wonGamesList").append("<li class='list-group-item'>"+
-    					"<span class='badge'>" + wongamesArray[i] + "</span>"+ playerName +"</li>");
-              if(i==7){
-                break;
-              }
+                if (wongamesArray[i] == data[i].wonGames) {
+                    playerName = data[i].userName;
+                }
+                $(".wonGamesList").append("<li class='list-group-item'>" +
+                    "<span class='badge'>" + wongamesArray[i] + "</span>" + playerName + "</li>");
+                if (i == 7) {
+                    break;
+                }
 
             }
 
