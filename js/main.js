@@ -1,7 +1,12 @@
 // new Dbconn();
 $(document).ready(function() {
-    populateStatLists();
-    test();
+  var globalSelectFromDB;
+  // saveTotalscoreToDb();
+    populateStatLists();//.done(function(){
+    //       saveTotalscoreToDb();
+    //     });
+
+
 
     $(".playground").on("click", function(e) {
         if (throwCounter != 0)
@@ -132,9 +137,9 @@ $(document).ready(function() {
     $(".table").on("click", function(e){
         var plats = e.target.id;
         var score = plats.substr(plats.length - 1);
-        
+
         if(('#' + e.target.id) == ('#player' + activePlayer + 'score' + score) && throwCounter > 0)
-        {  
+        {
             if($('#'+e.target.id).hasClass('unchosen'))
             {
                 $('#'+e.target.id).addClass('chosen').removeClass('unchosen');
@@ -146,16 +151,16 @@ $(document).ready(function() {
 
 
      function getSpelLogik(dices){
-        for(var f in spellogik){ 
+        for(var f in spellogik){
 
-            
+
             if($('#player' + activePlayer + spellogik[f](dices).plats).hasClass('unchosen')){
-                    
+
                     $('#player' + activePlayer + spellogik[f](dices).plats).text(spellogik[f](dices).sum);
-                
+
                 }
-            console.log(spellogik[f](dices).sum); 
-            console.log(spellogik[f](dices).plats);   
+            console.log(spellogik[f](dices).sum);
+            console.log(spellogik[f](dices).plats);
         }
 
     }
@@ -197,7 +202,7 @@ $(document).ready(function() {
         console.log(plats);
         for(i=0;i<=15;i++){
             if($("#player"+activePlayer+"score"+i).hasClass("unchosen")){
-                 
+
                  $("#player"+activePlayer+"score"+i).text("");
 
              }
@@ -411,41 +416,14 @@ $(document).ready(function() {
         }
     }
 
-function test(){
-
-  for (let i = 1; i < 5; i++) {
-    let tempName = $("#player"+i+"Name").text();
-    // let tempName = document.getElementById("#player"+i+"Name").value;
-
-    console.log("username",tempName);
-    // let tempScore = parseInt($("#player"+i+"Total").val(),10);
-    let tempScore = $("#player"+i+"Total").text();
-    console.log("score",tempScore);
-
-  var dataString = {
-      userName: tempName,
-      totalScore: tempScore,
-      wonGames: 0
-  };
-  console.log("datastring",dataString);
-  // $.ajax({
-  //   type: 'POST',
-  //   url:'/queries/insertTotalScore',
-  //   contentType: "application/json",
-  //   data: JSON.stringify(dataString),
-  //   contentType: "application/json"
-  // }).done(function(data){
-  //   console.log(data);
-  // });
-    }
-}
-
-    function populateStatLists() {
+  function populateStatLists() {
 
         $.ajax({
             type: 'GET',
             url: '/queries/readAll'
         }).done(function(data) {
+            globalSelectFromDB = data;
+            saveTotalscoreToDb();
             var totalScoreArray = [];
             var wongamesArray = [];
             for (let i = 0; i < data.length; i++) {
@@ -497,5 +475,74 @@ function test(){
 
     }
 
+    function saveTotalscoreToDb(){
+
+      var playersArray = [];
+      var scoreArray = [];
+      		var j = 0;
+      		$(".playerNameInput").each(function(){
+      			playersArray[j]=$(this).val();
+      			j++;
+      		});
+          j=0;
+          $(".playerScoreTestTotal").each(function(){
+      			scoreArray[j]=$(this).text();
+      			j++;
+      		});
+
+
+      for (let i = 0; i < 4; i++) {
+        let tempName = playersArray[i];
+        let tempScore = scoreArray[i];
+        console.log(globalSelectFromDB);
+        // if(tempName != globalSelectFromDB.userName){
+        for (let j = 0; j < globalSelectFromDB.length; j++) {
+          console.log(globalSelectFromDB[j].userName);
+          console.log(tempName);
+          if(tempName == globalSelectFromDB[j].userName){
+            if(globalSelectFromDB[j].totalScore > tempScore){
+              tempScore= globalSelectFromDB[j].totalScore;
+            }
+            let tempWonGames = parseInt(globalSelectFromDB[j].wonGames,10);
+            tempWonGames+=1;
+            var dataString = {
+                userName: tempName,
+                totalScore: parseInt(tempScore,10),
+                wonGames: tempWonGames
+            };
+            console.log("update",dataString);
+            $.ajax({
+              type: 'POST',
+              url:'/queries/updateWonGames',
+              contentType: "application/json",
+              data: JSON.stringify(dataString),
+              contentType: "application/json"
+            }).done(function(data){
+              console.log("update ajax",data);
+            });
+             break;
+          }else {
+            var dataString = {
+                userName: tempName,
+                totalScore: parseInt(tempScore,10),
+                wonGames: 0
+            };
+            console.log("insert",dataString);
+
+            $.ajax({
+              type: 'POST',
+              url:'/queries/insertTotalScore',
+              contentType: "application/json",
+              data: JSON.stringify(dataString),
+              contentType: "application/json"
+            }).done(function(data){
+              console.log("insert ajax",data);
+            });
+          }
+          break;
+        }
+// }
+        }
+    }
 
 });
