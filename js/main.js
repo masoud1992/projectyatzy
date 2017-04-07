@@ -1,38 +1,6 @@
 // new Dbconn();
 $(document).ready(function() {
-<<<<<<< HEAD
 
-<<<<<<< HEAD
-    /*function test() {
-        var dices = [1, 1, 1, 1, 1];
-        var score = null;
-        var reference = dices[0];
-        var isYatzy = true;
-=======
-populateStatLists();
->>>>>>> masoud
-
-        for (var i = 0; i < dices.length; i++) {
-            if (dices[i] == dices[0]) {
-                console.log("d lika med", i);
-
-            } else {
-                isYatzy = false;
-
-            }
-        }
-
-        if (isYatzy == true) {
-            score = 50;
-        }
-        console.log(score);
-        return score;
-    }*/
-
-	//markering av valda tärningar
-=======
-
->>>>>>> Magnus
     $(".playground").on("click", function(e) {
         if (throwCounter != 0)
         {
