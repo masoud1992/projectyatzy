@@ -1,10 +1,10 @@
 // new Dbconn();
-$(document).ready(function () {
-	var globalSelectFromDB;
-	// saveTotalscoreToDb();
-	populateStatLists(); //.done(function(){
-	//       saveTotalscoreToDb();
-	//     });
+$(document).ready(function() {
+
+    $(".playground").on("click", function(e) {
+        if (throwCounter != 0)
+        {
+            var clickedDice = e.target.id;
 
 
 	$(".playground").on("click", function (e) {
@@ -531,3 +531,10 @@ $(document).ready(function () {
 	}
 
 });
+
+$(document).ready(function () {
+	var globalSelectFromDB;
+	// saveTotalscoreToDb();
+	populateStatLists(); //.done(function(){
+	//       saveTotalscoreToDb();
+	//     });
