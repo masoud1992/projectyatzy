@@ -476,7 +476,13 @@ $(document).ready(function() {
     }
 
     function saveTotalscoreToDb(){
-
+      var updateAjax = false;
+      var insertAjax = false;
+      var dataStringUpdate;
+      var dataStringInsert;
+      var tempWonGames;
+      var tempScore;
+      var tempName
       var playersArray = [];
       var scoreArray = [];
       		var j = 0;
@@ -490,59 +496,83 @@ $(document).ready(function() {
       			j++;
       		});
 
-
+var tempHighestscore = Math.max(...scoreArray);
       for (let i = 0; i < 4; i++) {
-        let tempName = playersArray[i];
-        let tempScore = scoreArray[i];
-        console.log(globalSelectFromDB);
-        // if(tempName != globalSelectFromDB.userName){
+         tempName = playersArray[i];
+         tempScore = scoreArray[i];
         for (let j = 0; j < globalSelectFromDB.length; j++) {
-          console.log(globalSelectFromDB[j].userName);
-          console.log(tempName);
+          console.log("tempname",tempName);
+          console.log("from db",globalSelectFromDB[j].userName);
+
           if(tempName == globalSelectFromDB[j].userName){
             if(globalSelectFromDB[j].totalScore > tempScore){
               tempScore= globalSelectFromDB[j].totalScore;
             }
-            let tempWonGames = parseInt(globalSelectFromDB[j].wonGames,10);
-            tempWonGames+=1;
-            var dataString = {
-                userName: tempName,
-                totalScore: parseInt(tempScore,10),
-                wonGames: tempWonGames
-            };
-            console.log("update",dataString);
-            $.ajax({
-              type: 'POST',
-              url:'/queries/updateWonGames',
-              contentType: "application/json",
-              data: JSON.stringify(dataString),
-              contentType: "application/json"
-            }).done(function(data){
-              console.log("update ajax",data);
-            });
-             break;
-          }else {
-            var dataString = {
-                userName: tempName,
-                totalScore: parseInt(tempScore,10),
-                wonGames: 0
-            };
-            console.log("insert",dataString);
+             tempWonGames = parseInt(globalSelectFromDB[j].wonGames,10);
 
-            $.ajax({
-              type: 'POST',
-              url:'/queries/insertTotalScore',
-              contentType: "application/json",
-              data: JSON.stringify(dataString),
-              contentType: "application/json"
-            }).done(function(data){
-              console.log("insert ajax",data);
-            });
+              console.log("tempHighestscore", tempHighestscore);
+             if(tempScore>=tempHighestscore){
+               tempWonGames+=1;
+             }else {
+               tempWonGames = globalSelectFromDB[j].wonGames;
+             }
+             dataStringUpdate = {
+                userName: tempName,
+                totalScore: parseInt(tempScore,10),
+                wonGames: parseInt(tempWonGames,10)
+            };
+            console.log("update",dataStringUpdate);
+            updateAjax = true;
+            // insertAjax = false;
+            // continue;
+          }else{
+            if(tempScore>=tempHighestscore){
+              tempWonGames=1;
+            }else {
+              tempWonGames = 0;
+            }
+             dataStringInsert = {
+                userName: tempName,
+                totalScore: parseInt(tempScore,10),
+                wonGames: parseInt(tempWonGames,10)
+            };
+            console.log("insert",dataStringInsert);
+            insertAjax = true;
+            updateAjax = false;
+            // continue;
           }
-          break;
+
         }
-// }
+console.log("updateAjax",updateAjax);
+        if(updateAjax = true){
+          $.ajax({
+            type: 'POST',
+            url:'/queries/updateWonGames',
+            contentType: "application/json",
+            data: JSON.stringify(dataStringUpdate),
+            contentType: "application/json"
+          }).done(function(data){
+            console.log("update ajax",data);
+          });
+          // continue;
         }
+
+        console.log("insertAjax",insertAjax);
+         if (insertAjax = true) {
+          $.ajax({
+            type: 'POST',
+            url:'/queries/insertTotalScore',
+            contentType: "application/json",
+            data: JSON.stringify(dataStringInsert),
+            contentType: "application/json"
+          }).done(function(data){
+            console.log("insert ajax",data);
+          });
+          // continue;
+        }
+        }
+
+
     }
 
 });
