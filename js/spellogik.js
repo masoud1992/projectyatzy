@@ -1,312 +1,337 @@
 var spellogik = {
 
-	ones: function (dices){
+	ones: function (dices) {
 		var score = 0;
 
-		for(let d = 0; d < dices.length; d++){
-			if(dices[d] == 1){
+		for (let d = 0; d < dices.length; d++) {
+			if (dices[d] == 1) {
 				score += dices[d];
 			}
 		}
-		return {sum: score, plats: "score1"};
-	}, 
+		return {
+			sum: score,
+			plats: "score1"
+		};
+	},
 
-	twos: function (dices){
+	twos: function (dices) {
 		var score = 0;
 
-		for(let d = 0; d < dices.length; d++){
-            if(dices[d] == 2){
-                score += dices[d];
-            }
+		for (let d = 0; d < dices.length; d++) {
+			if (dices[d] == 2) {
+				score += dices[d];
+			}
 		}
-		return {sum: score, plats: "score2"};
-	}, 
+		return {
+			sum: score,
+			plats: "score2"
+		};
+	},
 
-	threes: function (dices){
+	threes: function (dices) {
 		var score = 0;
 
-		for(let d = 0; d < dices.length; d++){
-            if(dices[d] == 3){
-                score += dices[d];
-            }
+		for (let d = 0; d < dices.length; d++) {
+			if (dices[d] == 3) {
+				score += dices[d];
+			}
 		}
-		return {sum: score, plats: "score3"};
-	}, 
+		return {
+			sum: score,
+			plats: "score3"
+		};
+	},
 
-	fours: function (dices){
+	fours: function (dices) {
 		var score = 0;
 
-		for(let d = 0; d < dices.length; d++){
-            if(dices[d] == 4){
-                score += dices[d];
-            }
+		for (let d = 0; d < dices.length; d++) {
+			if (dices[d] == 4) {
+				score += dices[d];
+			}
 		}
-		return {sum: score, plats: "score4"};
-	}, 
+		return {
+			sum: score,
+			plats: "score4"
+		};
+	},
 
-	fives: function (dices){
+	fives: function (dices) {
 		var score = 0;
 
-		for(let d = 0; d < dices.length; d++){
-            if(dices[d] == 5){
-                score += dices[d];
-            }
+		for (let d = 0; d < dices.length; d++) {
+			if (dices[d] == 5) {
+				score += dices[d];
+			}
 		}
-		return {sum: score, plats: "score5"};
-	}, 
+		return {
+			sum: score,
+			plats: "score5"
+		};
+	},
 
-	sixes: function (dices){
+	sixes: function (dices) {
 		var score = 0;
 
-		for(let d = 0; d < dices.length; d++){
-            if(dices[d] == 6){
-                score += dices[d];
-            }
-        }
+		for (let d = 0; d < dices.length; d++) {
+			if (dices[d] == 6) {
+				score += dices[d];
+			}
+		}
 
-		return {sum: score, plats: "score6"};
-	},  
+		return {
+			sum: score,
+			plats: "score6"
+		};
+	},
 
-	onepair: function (dices){
+	onepair: function (dices) {
 
-        var score = 0;
-        var tempArray = [];
-        var onepair = false;
-        var currentDice = 0;
+		var score = 0;
+		var tempArray = [];
+		var onepair = false;
+		var currentDice = 0;
 
-		for(let i = 1; i <= 6; i++){
-            var count = 0;
-            for(let j = 0; j < 5; j++){
-                if(dices [j] == i){
-                    currentDice = dices[j];
-                    count++;
-                }
-                
-            if(count >= 2){
-                tempArray.push(currentDice);
-                count = 0;
-            }
-            }
-        }
-            
-            tempArray.sort(function(a,b){
-                return b-a;
-            });
-            
-            score = tempArray[0]+tempArray[0];
-                
-        return {sum: score, plats: "score7"};
-    },
+		for (let i = 1; i <= 6; i++) {
+			var count = 0;
+			for (let j = 0; j < 5; j++) {
+				if (dices[j] == i) {
+					currentDice = dices[j];
+					count++;
+				}
 
-    twopair: function (dices){
+				if (count >= 2) {
+					tempArray.push(currentDice);
+					count = 0;
+				}
+			}
+		}
 
-        var score = 0;
-        var tempArray = [];
-        var currentDice = 0;
-        var paircounter = 0;
+		tempArray.sort(function (a, b) {
+			return b - a;
+		});
 
-		for(let i = 1; i <= 6; i++){
-            var count = 0;
-            for(let j = 0; j < 5; j++){
-                if(dices [j] == i){
-                    currentDice = dices[j];
-                    count++;
-                }
+		score = tempArray[0] + tempArray[0];
 
-                
-            if(count >= 2){
-                tempArray.push(currentDice);
-                count = 0;
-            }
-            }
-        }
-           
-            if(tempArray.length > 1){
-            	score = tempArray[0] + tempArray[0] + tempArray[1] + tempArray[1];
-            }
-    
-        return {sum: score, plats: "score8"};
-    },
+		return {
+			sum: score,
+			plats: "score7"
+		};
+	},
 
-    threeOfAKind: function (dices){
+	twopair: function (dices) {
 
-        var score = 0;
-        var tempArray = [];
-        var currentDice = 0;
+		var score = 0;
+		var tempArray = [];
+		var currentDice = 0;
+		var paircounter = 0;
 
-		for(let i = 1; i <= 6; i++){
-            var count = 0;
-            for(let j = 0; j < 5; j++){
-                if(dices [j] == i){
-                    currentDice = dices[j];
-                    count++;
-                }
-                
-            if(count == 3){
-                tempArray.push(currentDice);
-                count = 0;
-                break;
-            }
-            }
-        }
+		for (let i = 1; i <= 6; i++) {
+			var count = 0;
+			for (let j = 0; j < 5; j++) {
+				if (dices[j] == i) {
+					currentDice = dices[j];
+					count++;
+				}
 
-            if(tempArray.length > 0){
-            	score = tempArray[0] + tempArray[0] + tempArray[0];
-            }
-    
-        return {sum: score, plats: "score9"};
-    },
+				if (count >= 2) {
+					tempArray.push(currentDice);
+					count = 0;
+				}
+			}
+		}
 
-    fourOfAKind: function (dices){
+		if (tempArray.length > 1) {
+			score = tempArray[0] + tempArray[0] + tempArray[1] + tempArray[1];
+		}
 
-        var score = 0;
-        var tempArray = [];
-        var currentDice = 0;
+		return {
+			sum: score,
+			plats: "score8"
+		};
+	},
 
-		for(let i = 1; i <= 6; i++){
-            var count = 0;
-            for(let j = 0; j < 5; j++){
-                if(dices [j] == i){
-                    currentDice = dices[j];
-                    count++;
-                }
-                
-            if(count == 4){
-                tempArray.push(currentDice);
-                count = 0;
-                break;
-            }
-            }
-        }
+	threeOfAKind: function (dices) {
 
-            if(tempArray.length > 0){
-            	score = tempArray[0] * 4;
-            }
-    
-        return {sum: score, plats: "score10"};
-    },
+		var score = 0;
+		var tempArray = [];
+		var currentDice = 0;
 
-    smallStraight: function(dices){
-    	var score = null;
-        var counter = 0
-        var isSmallStraight = false;
-        dices.sort(function(a,b){
-            return a-b;
-        });
-        
-        if(dices[0] == 1){
+		for (let i = 1; i <= 6; i++) {
+			var count = 0;
+			for (let j = 0; j < 5; j++) {
+				if (dices[j] == i) {
+					currentDice = dices[j];
+					count++;
+				}
 
+				if (count == 3) {
+					tempArray.push(currentDice);
+					count = 0;
+					break;
+				}
+			}
+		}
 
-            for(var i = 0; i < dices.length; i++){
-                if(dices[i] == counter+1){
+		if (tempArray.length > 0) {
+			score = tempArray[0] + tempArray[0] + tempArray[0];
+		}
 
-                    isSmallStraight = true;
-                    counter++;
+		return {
+			sum: score,
+			plats: "score9"
+		};
+	},
 
-                }
-                
-                else{
-                    isSmallStraight = false;
-                    break;
-                }
-            }
-        }
+	fourOfAKind: function (dices) {
 
-        if(isSmallStraight){
-            score = 15;
-        }
-        
-        return {sum: score, plats: "score11"};
-    },
+		var score = 0;
+		var tempArray = [];
+		var currentDice = 0;
 
-    largeStraight: function(dices){
-    	var score = null;
-        var counter = 1;
-        var isLargeStraight = false;
-        dices.sort(function(a,b){
-            return a-b;
-        });
-        
-        if(dices[0] == 2){
+		for (let i = 1; i <= 6; i++) {
+			var count = 0;
+			for (let j = 0; j < 5; j++) {
+				if (dices[j] == i) {
+					currentDice = dices[j];
+					count++;
+				}
 
+				if (count == 4) {
+					tempArray.push(currentDice);
+					count = 0;
+					break;
+				}
+			}
+		}
 
-            for(var i = 0; i < dices.length; i++){
-                if(dices[i] == counter+1){
+		if (tempArray.length > 0) {
+			score = tempArray[0] * 4;
+		}
 
-                    isLargeStraight = true;
-                    counter++;
+		return {
+			sum: score,
+			plats: "score10"
+		};
+	},
 
-                }
-                
-                else{
-                    isLargeStraight = false;
-                    break;
-                }
-            }
-        }
+	smallStraight: function (dices) {
+		var score = null;
+		var counter = 0
+			var isSmallStraight = false;
+		dices.sort(function (a, b) {
+			return a - b;
+		});
 
-        if(isLargeStraight){
-            score = 20;
-        }
-        
-        return {sum: score, plats: "score12"};
-    },
+		if (dices[0] == 1) {
 
-    fullHouse: function(dices){
+			for (var i = 0; i < dices.length; i++) {
+				if (dices[i] == counter + 1) {
 
-       var score = null;
-        
+					isSmallStraight = true;
+					counter++;
 
-        dices.sort(function(a,b){
-            return a-b;
-        });
+				} else {
+					isSmallStraight = false;
+					break;
+				}
+			}
+		}
 
-        if(((dices[0] == dices[1]) &&  (dices[3] == dices[4])) && ((dices[2] == dices[1]) || (dices[2] == dices[4]))) {
-            score = 28;
-        }
-          
-        return {sum: score, plats: "score13"};
-       
-    },
+		if (isSmallStraight) {
+			score = 15;
+		}
 
-    chance: function(dices){
-    	var score = 0;
-    	for(let d = 0; d < dices.length; d++){
-    		score += dices[d];
-    	}
-    	return {sum: score, plats: "score14"};
-    },
+		return {
+			sum: score,
+			plats: "score11"
+		};
+	},
 
-    yatzy: function(dices){
-    	
-        var score = null;
-        var reference = dices[0];
-        var isYatzy = true;
+	largeStraight: function (dices) {
+		var score = null;
+		var counter = 1;
+		var isLargeStraight = false;
+		dices.sort(function (a, b) {
+			return a - b;
+		});
 
-        for(var i = 0; i < dices.length; i++){
-            if(dices[i] == dices[0]){
-                
-            }
-            else{
-                isYatzy = false;
-                
-            }
-        }
+		if (dices[0] == 2) {
 
-        if(isYatzy == true){
-            score = 50;
-        }
-        return {sum: score, plats: "score15"};
-    }
+			for (var i = 0; i < dices.length; i++) {
+				if (dices[i] == counter + 1) {
 
+					isLargeStraight = true;
+					counter++;
 
+				} else {
+					isLargeStraight = false;
+					break;
+				}
+			}
+		}
 
-			
+		if (isLargeStraight) {
+			score = 20;
+		}
 
+		return {
+			sum: score,
+			plats: "score12"
+		};
+	},
 
+	fullHouse: function (dices) {
 
+		var score = null;
 
+		dices.sort(function (a, b) {
+			return a - b;
+		});
 
+		if (((dices[0] == dices[1]) && (dices[3] == dices[4])) && ((dices[2] == dices[1]) || (dices[2] == dices[4]))) {
+			score = 28;
+		}
 
+		return {
+			sum: score,
+			plats: "score13"
+		};
 
+	},
+
+	chance: function (dices) {
+		var score = 0;
+		for (let d = 0; d < dices.length; d++) {
+			score += dices[d];
+		}
+		return {
+			sum: score,
+			plats: "score14"
+		};
+	},
+
+	yatzy: function (dices) {
+
+		var score = null;
+		var reference = dices[0];
+		var isYatzy = true;
+
+		for (var i = 0; i < dices.length; i++) {
+			if (dices[i] == dices[0]) {}
+			else {
+				isYatzy = false;
+
+			}
+		}
+
+		if (isYatzy == true) {
+			score = 50;
+		}
+		return {
+			sum: score,
+			plats: "score15"
+		};
 	}
+
+}
