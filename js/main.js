@@ -1,16 +1,16 @@
 // new Dbconn();
 $(document).ready(function() {
-  var globalSelectFromDB;
-  // saveTotalscoreToDb();
-    populateStatLists();//.done(function(){
+
+    var globalSelectFromDB;
+    // saveTotalscoreToDb();
+    populateStatLists(); //.done(function(){
     //       saveTotalscoreToDb();
     //     });
 
 
 
     $(".playground").on("click", function(e) {
-        if (throwCounter != 0)
-        {
+        if (throwCounter != 0) {
             var clickedDice = e.target.id;
 
             switch (clickedDice) {
@@ -56,9 +56,6 @@ $(document).ready(function() {
 
     });
 
-
-
-    totalScore();
     var throwCounter = 0;
     var gameOver = false;
     nextStepGuide(throwCounter);
@@ -71,8 +68,7 @@ $(document).ready(function() {
 
     var activePlayer = 1;
 
-    function changePlayer()
-    {
+    function changePlayer() {
 
         var playerImage = returnNumberAsWord(activePlayer);
 
@@ -90,59 +86,56 @@ $(document).ready(function() {
         console.log(playerImage + 'changed');
     }
 
-    function throwDice(dicesToThrow) {
+    function throwDice() {
+
         throwCounter++;
+        var dices = [1, 2, 3, 4, 5];
 
-        var dices = [];
+        for (i = 1; i <= 5; i++) {
 
-        for (var i = 0; i < dicesToThrow; i++) {
-            var randomNum = Math.floor((Math.random() * 6) + 1);
-            dices.push(randomNum);
-        }
+            var diceNumber = returnNumberAsWord(i);
 
-        console.log('Antal markerade: ' + $('.playground .marked').length);
+            if ($('#dice' + diceNumber).hasClass('unmarked')) {
 
-        for (i = 1; i <= $('.playground .marked').length; i++)
-        {
-            var dice = returnNumberAsWord(i);
+                var randomNumber = Math.floor((Math.random() * 6) + 1);
+                dices.splice(i - 1, 1, randomNumber);
 
-            for (i = 1; i <= 5; i++)
-            {
-                dice = returnNumberAsWord(i);
 
-                if ($('#dice' + dice).hasClass('marked'))
-                {
-                    var diceName = $('#dice' + dice).attr('src');
-                    var diceText = diceName.substr(diceName.length - 5);
+            } else if ($('#dice' + diceNumber).hasClass('marked')) {
 
-                    diceText = diceText.substr(0, 1);
+                console.log('markerad position på tärning: ' + i);
+                var diceText = $('#dice' + diceNumber).attr('src');
+                diceText = diceText.substr(-5, 1);
+                var diceValue = parseInt(diceText);
 
-                    console.log('diceText = ' + diceText);
-
-                    var diceNumber = parseInt(diceText);
-
-                    //lägg till siffran på rätt index i dices
-
-                    dices.push(diceNumber);
-                }
+                dices.splice(i - 1, 1, diceValue);
             }
+
         }
 
-        console.log('Dices: ' + dices)
+        console.log('Initial array ' + dices);
+        var tempArray = dices;
 
-        getSpelLogik(dices);
+        getSpelLogik(tempArray);
+
+        console.log('Efter spellogik, dices: ' + dices);
+        console.log('Efter spellogik, tempArray: ' + tempArray);
+
         return dices;
     }
 
-    $(".table").on("click", function(e){
+    $(".table").on("click", function(e) {
         var plats = e.target.id;
         var score = plats.substr(plats.length - 1);
+        var overNineScore = plats.substr(plats.length - 2);
 
-        if(('#' + e.target.id) == ('#player' + activePlayer + 'score' + score) && throwCounter > 0)
-        {
-            if($('#'+e.target.id).hasClass('unchosen'))
-            {
-                $('#'+e.target.id).addClass('chosen').removeClass('unchosen');
+        overNineScore = overNineScore.substr(0, 1);
+        if (overNineScore == 1) {
+            score = overNineScore + score;
+        }
+        if (('#' + e.target.id) == ('#player' + activePlayer + 'score' + score) && throwCounter > 0) {
+            if ($('#' + e.target.id).hasClass('unchosen')) {
+                $('#' + e.target.id).addClass('chosen').removeClass('unchosen');
                 endTurn(e.target.id);
             }
         };
@@ -150,18 +143,15 @@ $(document).ready(function() {
     });
 
 
-     function getSpelLogik(dices){
-        for(var f in spellogik){
+    function getSpelLogik(dices) {
 
 
-            if($('#player' + activePlayer + spellogik[f](dices).plats).hasClass('unchosen')){
-
-                    $('#player' + activePlayer + spellogik[f](dices).plats).text(spellogik[f](dices).sum);
-
-                }
-            console.log(spellogik[f](dices).sum);
-            console.log(spellogik[f](dices).plats);
+        for (var f in spellogik) {
+            if ($('#player' + activePlayer + spellogik[f](dices).plats).hasClass('unchosen')) {
+                $('#player' + activePlayer + spellogik[f](dices).plats).text(spellogik[f](dices).sum);
+            }
         }
+
 
     }
 
@@ -187,45 +177,61 @@ $(document).ready(function() {
             }
 
         } else {
-            dicesToThrow = $(".playground .unmarked").length;
-            displayDice(throwDice(dicesToThrow));
+            displayDice(throwDice());
             nextStepGuide(throwCounter);
 
         }
-        if (gameOver) {
-            totalScore(tempPlayerField, inputCountertemp);
-        }
+
 
     });
 
     function endTurn(plats) {
-        console.log(plats);
-        for(i=0;i<=15;i++){
-            if($("#player"+activePlayer+"score"+i).hasClass("unchosen")){
+        for (i = 0; i <= 15; i++) {
+            if ($("#player" + activePlayer + "score" + i).hasClass("unchosen")) {
 
-                 $("#player"+activePlayer+"score"+i).text("");
+                $("#player" + activePlayer + "score" + i).text("");
 
-             }
+            }
         }
         resetDices();
-        throwCounter=0;
+        throwCounter = 0;
         nextStepGuide(throwCounter);
+        checkIfScoreboardFull();
         updateTotalScore();
+        checkBonus(activePlayer);
         changePlayer();
+    }
+
+    function updateTotalScore() {
+        var totalScore = 0;
+
+        for (i = 0; i <= 15; i++) {
+            if ($('#player' + activePlayer + 'score' + i).hasClass('chosen')) {
+                var score = parseInt($('#player' + activePlayer + 'score' + i).text(), 10);
+                totalScore += score;
+            }
+        }
+
+        $('#player' + activePlayer + 'Total').text(totalScore);
+    }
+
+    function checkIfScoreboardFull() {
+        if ($(".unchosen").length == 0) {
+            saveTotalscoreToDb();
+            gameOver = true;
+        }
     }
 
     function displayDice(dices) {
 
         var currentDice = 0;
-
         for (i = 1; i <= 5; i++) {
             var diceImage = returnNumberAsWord(i);
+            var number = dices[currentDice];
 
-            if ($('#dice' + diceImage).hasClass('unmarked')) {
-                var number = dices[currentDice];
-                $('#dice' + diceImage).attr("src", "images/dices/" + number + ".png");
-                currentDice += 1;
-            }
+            $('#dice' + diceImage).attr("src", "images/dices/" + number + ".png");
+
+            currentDice += 1;
         }
     }
 
@@ -253,46 +259,6 @@ $(document).ready(function() {
                 break;
         }
     }
-
-    function updateTotalScore()
-    {
-        var totalScore = 0;
-
-        for (i = 0; i <= 15; i++)
-        {
-            if ($('#player' + activePlayer + 'score' + i).hasClass('chosen'))
-            {
-                var score = parseInt($('#player' + activePlayer + 'score' + i).text(), 10);
-                totalScore += score;
-            }
-        }
-
-        $('#player' + activePlayer + 'Total').text(totalScore);
-    }
-
-    function totalScore(playerField, playerNumber) {
-        var sum = $(playerNumber).text();
-        var tempPlayerName = "#" + playerNumber + "Name"
-        var userName = $(tempPlayerName).text();
-        sum = parseInt(sum, 10);
-
-        var dataString = {
-            userName: userName,
-            totalScore: sum
-        };
-        // $.ajax({
-        //   type: 'POST',
-        //   url:'/queries/insertTotalScore',
-        //   contentType: "application/json",
-        //   data: JSON.stringify(dataString),
-        //   contentType: "application/json"
-        // }).done(function(data){
-        //   console.log(data);
-        // });
-
-
-    }
-
 
 
     function nextStepGuide(stepInt) {
@@ -330,75 +296,29 @@ $(document).ready(function() {
 
     }
 
-    function checkIfGameIsOver(inputCountertemp) {
-
-        for (var i = 0; i <= 18; i++) {
-            inputID = inputCountertemp + "score" + i;
-            if (inputID.value != '') {
-                alert("Gave over");
-            }
-        }
-    }
-
-    function incrementInputCounters(inputCountertemp) {
-        switch (inputCountertemp) {
-            case "player1":
-                {
-                    inputCounterP1++;
-                    if (inputCounterP1 >= 24) {
-                        checkIfGameIsOver(inputCountertemp);
-                    }
-                    break;
-                }
-            case "player2":
-                {
-                    inputCounterP2++;
-                    if (inputCounterP2 >= 24) {
-                        checkIfGameIsOver(inputCountertemp);
-                    }
-                    break;
-                }
-            case "player3":
-                {
-                    inputCounterP3++;
-                    if (inputCounterP3 >= 24) {
-                        checkIfGameIsOver(inputCountertemp);
-                    }
-                    break;
-                }
-            case "player4":
-                {
-                    inputCounterP4++;
-                    if (inputCounterP4 >= 24) {
-                        checkIfGameIsOver(inputCountertemp);
-                    }
-                    break;
-                }
-
-        }
-    }
 
     function checkBonus(player) {
         // var tempCount = 0;
         var tempValue = 0;
         var currentTotal = 0;
-        var tempPlayerTotal = "#" + player + "Total";
+        var tempPlayerTotal = "#player" + player + "Total";
 
         currentTotal = $(tempPlayerTotal).text();
         currentTotal = parseInt(currentTotal, 10);
         for (let i = 1; i < 7; i++) {
-            var inputID = player + "score" + i;
-            var tempId = document.getElementById(inputID).value;
+            var inputID = '#player' + player + "score" + i;
+            var tempId = $(inputID).text();
             if (tempId != '') {
                 // tempCount++;
                 tempValue += parseInt(tempId, 10);
             }
         }
         tempValue = parseInt(tempValue, 10);
+        $('.player' + player + 'Score').text(tempValue);
 
         if (tempValue >= 63) {
 
-            tempPlayer = "." + player + "Bonus";
+            tempPlayer = ".player" + player + "Bonus";
             $(tempPlayer).text(50);
             $(tempPlayerTotal).html("");
             currentTotal += 50;
@@ -416,14 +336,13 @@ $(document).ready(function() {
         }
     }
 
-  function populateStatLists() {
+    function populateStatLists() {
 
         $.ajax({
             type: 'GET',
             url: '/queries/readAll'
         }).done(function(data) {
             globalSelectFromDB = data;
-            saveTotalscoreToDb();
             var totalScoreArray = [];
             var wongamesArray = [];
             for (let i = 0; i < data.length; i++) {
@@ -438,7 +357,7 @@ $(document).ready(function() {
                 return b - a;
             });
             data.sort(function(a, b) {
-                return b - a;
+                return b.totalScore - a.totalScore;
             });
 
             for (let i = 0; i < totalScoreArray.length; i++) {
@@ -475,101 +394,117 @@ $(document).ready(function() {
 
     }
 
-    function saveTotalscoreToDb(){
-      var updateAjax = false;
-      var insertAjax = false;
-      var dataStringUpdate;
-      var dataStringInsert;
-      var tempWonGames;
-      var tempScore;
-      var tempName
-      var playersArray = [];
-      var scoreArray = [];
-      		var j = 0;
-      		$(".playerNameInput").each(function(){
-      			playersArray[j]=$(this).val();
-      			j++;
-      		});
-          j=0;
-          $(".playerScoreTestTotal").each(function(){
-      			scoreArray[j]=$(this).text();
-      			j++;
-      		});
+    function saveTotalscoreToDb() {
+        var updateAjax = false;
+        var insertAjax = false;
+        var dataStringUpdate;
+        var dataStringInsert;
+        var tempWonGames;
+        var tempScore;
+        var tempName
+        var playersArray = [];
+        var scoreArray = [];
+        var j = 0;
+        $(".playerNameInput").each(function() {
+            playersArray[j] = $(this).val();
+            j++;
+        });
+        console.log(playersArray);
+        j = 0;
+        $(".playerScoreTestTotal").each(function() {
+            scoreArray[j] = $(this).text();
+            j++;
+        });
 
-var tempHighestscore = Math.max(...scoreArray);
-      for (let i = 0; i < 4; i++) {
-         tempName = playersArray[i];
-         tempScore = scoreArray[i];
-        for (let j = 0; j < globalSelectFromDB.length; j++) {
-          console.log("tempname",tempName);
-          console.log("from db",globalSelectFromDB[j].userName);
+        var tempHighestscore = Math.max(...scoreArray);
+        var dataStringUpdate = [];
+        // var dataStringInsert = [];
+        for (let i = 0; i < 4; i++) {
+            tempName = playersArray[i];
+            tempScore = scoreArray[i];
+            for (let j = 0; j < globalSelectFromDB.length; j++) {
+                console.log("tempname", tempName);
+                console.log("from db", globalSelectFromDB[j].userName);
 
-          if(tempName == globalSelectFromDB[j].userName){
-            if(globalSelectFromDB[j].totalScore > tempScore){
-              tempScore= globalSelectFromDB[j].totalScore;
+                if (tempName == globalSelectFromDB[j].userName) {
+                    if (globalSelectFromDB[j].totalScore > tempScore) {
+                        tempScore = globalSelectFromDB[j].totalScore;
+                    }
+                    tempWonGames = parseInt(globalSelectFromDB[j].wonGames, 10);
+
+                    console.log("tempHighestscore", tempHighestscore);
+                    if (tempScore >= tempHighestscore) {
+                        tempWonGames += 1;
+                    } else {
+                        tempWonGames = globalSelectFromDB[j].wonGames;
+                    }
+                    //  dataStringUpdate = {
+                    //     userName: tempName,
+                    //     totalScore: parseInt(tempScore,10),
+                    //     wonGames: parseInt(tempWonGames,10)
+                    // };
+
+                    dataStringUpdate.push(parseInt(tempWonGames, 10));
+                    dataStringUpdate.push(parseInt(tempScore, 10));
+                    dataStringUpdate.push(tempName);
+                    console.log("update", dataStringUpdate);
+                    updateAjax = true;
+                    insertAjax = false;
+                    // continue;
+                } else {
+                    if (tempScore >= tempHighestscore) {
+                        tempWonGames = 1;
+                    } else {
+                        tempWonGames = 0;
+                    }
+                    dataStringInsert = {
+                        userName: tempName,
+                        totalScore: parseInt(tempScore, 10),
+                        wonGames: parseInt(tempWonGames, 10)
+                    };
+                    // dataStringInsert.push(String(tempName));
+                    // dataStringInsert.push(parseInt(tempScore,10));
+                    // dataStringInsert.push(parseInt(tempWonGames,10));
+
+
+                    console.log("insert", dataStringInsert);
+                    insertAjax = true;
+                    updateAjax = false;
+                    // continue;
+                }
+
             }
-             tempWonGames = parseInt(globalSelectFromDB[j].wonGames,10);
-
-              console.log("tempHighestscore", tempHighestscore);
-             if(tempScore>=tempHighestscore){
-               tempWonGames+=1;
-             }else {
-               tempWonGames = globalSelectFromDB[j].wonGames;
-             }
-             dataStringUpdate = {
-                userName: tempName,
-                totalScore: parseInt(tempScore,10),
-                wonGames: parseInt(tempWonGames,10)
-            };
-            console.log("update",dataStringUpdate);
-            updateAjax = true;
-            // insertAjax = false;
-            // continue;
-          }else{
-            if(tempScore>=tempHighestscore){
-              tempWonGames=1;
-            }else {
-              tempWonGames = 0;
+            console.log("updateAjax", updateAjax);
+            if (updateAjax = true) {
+                $.ajax({
+                    type: 'POST',
+                    url: '/queries/updateWonGames',
+                    contentType: "application/json",
+                    data: JSON.stringify(dataStringUpdate),
+                    contentType: "application/json"
+                }).done(function(data) {
+                    console.log("update ajax", data);
+                    updateAjax = false;
+                    dataStringUpdate.length = 0;
+                });
+                // continue;
             }
-             dataStringInsert = {
-                userName: tempName,
-                totalScore: parseInt(tempScore,10),
-                wonGames: parseInt(tempWonGames,10)
-            };
-            console.log("insert",dataStringInsert);
-            insertAjax = true;
-            updateAjax = false;
-            // continue;
-          }
 
-        }
-console.log("updateAjax",updateAjax);
-        if(updateAjax = true){
-          $.ajax({
-            type: 'POST',
-            url:'/queries/updateWonGames',
-            contentType: "application/json",
-            data: JSON.stringify(dataStringUpdate),
-            contentType: "application/json"
-          }).done(function(data){
-            console.log("update ajax",data);
-          });
-          // continue;
-        }
-
-        console.log("insertAjax",insertAjax);
-         if (insertAjax = true) {
-          $.ajax({
-            type: 'POST',
-            url:'/queries/insertTotalScore',
-            contentType: "application/json",
-            data: JSON.stringify(dataStringInsert),
-            contentType: "application/json"
-          }).done(function(data){
-            console.log("insert ajax",data);
-          });
-          // continue;
-        }
+            console.log("insertAjax", insertAjax);
+            if (insertAjax = true) {
+                $.ajax({
+                    type: 'POST',
+                    url: '/queries/insertTotalScore',
+                    contentType: "application/json",
+                    data: JSON.stringify(dataStringInsert),
+                    contentType: "application/json"
+                }).done(function(data) {
+                    console.log("insert ajax", data);
+                    insertAjax = false;
+                    dataStringInsert.length = 0;
+                });
+                // continue;
+            }
         }
 
 
