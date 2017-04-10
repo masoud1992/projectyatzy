@@ -1,36 +1,6 @@
 // new Dbconn();
 $(document).ready(function() {
-  function test(){
-    var tempName = "Ali";
-    var tempScore = 500;
-    var tempWonGames = 34;
 
-dataStringUpdate.push(parseInt(tempWonGames,10));
-    dataStringUpdate.push(parseInt(tempScore,10));
-    dataStringUpdate.push(tempName);
-
-    //  dataStringUpdate = {
-    //     userName: tempName,
-    //     totalScore: parseInt(tempScore,10),
-    //     wonGames: parseInt(tempWonGames,10)
-    // };
-    // dataStringUpdate = [5,260, "Ali"
-    //  ]
-    $.ajax({
-      type: 'POST',
-      url:'/queries/updateWonGames',
-      contentType: "application/json",
-      data: JSON.stringify(dataStringUpdate),
-      // processData:false,
-      contentType: "application/json"
-    }).done(function(data){
-      console.log("update ajax",data);
-      updateAjax = false;
-    });
-
-  }
-  test();
-  return;
   var globalSelectFromDB;
   // saveTotalscoreToDb();
     populateStatLists();//.done(function(){
@@ -236,7 +206,8 @@ dataStringUpdate.push(parseInt(tempWonGames,10));
         resetDices();
         throwCounter=0;
         nextStepGuide(throwCounter);
-        updateTotalScore();
+		updateTotalScore();
+		checkBonus(activePlayer);
         changePlayer();
     }
 
@@ -406,23 +377,24 @@ dataStringUpdate.push(parseInt(tempWonGames,10));
         // var tempCount = 0;
         var tempValue = 0;
         var currentTotal = 0;
-        var tempPlayerTotal = "#" + player + "Total";
+        var tempPlayerTotal = "#player" + player + "Total";
 
         currentTotal = $(tempPlayerTotal).text();
         currentTotal = parseInt(currentTotal, 10);
         for (let i = 1; i < 7; i++) {
-            var inputID = player + "score" + i;
-            var tempId = document.getElementById(inputID).value;
+            var inputID = '#player'+player + "score" + i;
+            var tempId = $(inputID).text();
             if (tempId != '') {
                 // tempCount++;
                 tempValue += parseInt(tempId, 10);
             }
         }
         tempValue = parseInt(tempValue, 10);
-
+		$('.player'+player+'Score').text(tempValue);
+		
         if (tempValue >= 63) {
 
-            tempPlayer = "." + player + "Bonus";
+            tempPlayer = ".player" + player + "Bonus";
             $(tempPlayer).text(50);
             $(tempPlayerTotal).html("");
             currentTotal += 50;
