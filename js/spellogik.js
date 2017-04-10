@@ -93,8 +93,10 @@ var spellogik = {
                 return b-a;
             });
             
-            score = tempArray[0]+tempArray[0];
-                
+			if (tempArray.length == 1)
+			{
+				score = tempArray[0]+tempArray[0];
+            }
         return {sum: score, plats: "score7"};
     },
 
@@ -187,18 +189,30 @@ var spellogik = {
     },
 
     smallStraight: function(dices){
-    	var score = null;
-        var counter = 0
+    	var score = 0;
+        var counter = 0;
         var isSmallStraight = false;
-        dices.sort(function(a,b){
+		
+		var tempArray = [];
+		
+        
+		
+		for (var i = 0; i < dices.length; i++)
+		{
+			tempArray.push(dices[i]);
+		}
+		
+		tempArray.sort(function(a,b){
             return a-b;
         });
+		
+		console.log('dices i small straight: ' + dices);
         
-        if(dices[0] == 1){
+        if(tempArray[0] == 1){
 
 
-            for(var i = 0; i < dices.length; i++){
-                if(dices[i] == counter+1){
+            for(var i = 0; i < tempArray.length; i++){
+                if(tempArray[i] == counter+1){
 
                     isSmallStraight = true;
                     counter++;
@@ -211,27 +225,38 @@ var spellogik = {
                 }
             }
         }
+		
 
         if(isSmallStraight){
             score = 15;
         }
+		
+		
         
         return {sum: score, plats: "score11"};
     },
 
     largeStraight: function(dices){
-    	var score = null;
+    	var score = 0;
         var counter = 1;
         var isLargeStraight = false;
-        dices.sort(function(a,b){
+		var tempArray = [];
+		
+		
+		for (var i = 0; i < dices.length; i++)
+		{
+			tempArray.push(dices[i]);
+		}
+        
+		tempArray.sort(function(a,b){
             return a-b;
         });
-        
-        if(dices[0] == 2){
+		console.log('dices i large straight: ' + dices);
+		if(tempArray[0] == 2){
 
 
-            for(var i = 0; i < dices.length; i++){
-                if(dices[i] == counter+1){
+            for(var i = 0; i < tempArray.length; i++){
+                if(tempArray[i] == counter+1){
 
                     isLargeStraight = true;
                     counter++;
@@ -254,14 +279,15 @@ var spellogik = {
 
     fullHouse: function(dices){
 
-       var score = null;
-        
-
-        dices.sort(function(a,b){
-            return a-b;
-        });
-
-        if(((dices[0] == dices[1]) &&  (dices[3] == dices[4])) && ((dices[2] == dices[1]) || (dices[2] == dices[4]))) {
+       var score = 0;
+	   var tempArray = [];
+       
+	   for (var i = 0; i < dices.length; i++)
+		{
+			tempArray.push(dices[i]);
+		}
+		
+        if(((tempArray[0] == tempArray[1]) &&  (tempArray[3] == tempArray[4])) && ((tempArray[2] == tempArray[1]) || (tempArray[2] == tempArray[4]))) {
             score = 28;
         }
           
@@ -279,7 +305,7 @@ var spellogik = {
 
     yatzy: function(dices){
     	
-        var score = null;
+        var score = 0;
         var reference = dices[0];
         var isYatzy = true;
 
