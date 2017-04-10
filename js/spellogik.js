@@ -287,7 +287,11 @@ var spellogik = {
 			tempArray.push(dices[i]);
 		}
 		
-        if(((tempArray[0] == tempArray[1]) &&  (tempArray[3] == tempArray[4])) && ((tempArray[2] == tempArray[1]) || (tempArray[2] == tempArray[4]))) {
+		tempArray.sort(function(a,b){
+            return a-b;
+        });
+        
+		if(((tempArray[0] == tempArray[1]) &&  (tempArray[3] == tempArray[4])) && ((tempArray[2] == tempArray[1]) || (tempArray[2] == tempArray[4]))) {
             score = 28;
         }
           
