@@ -93,7 +93,7 @@ var spellogik = {
                 return b-a;
             });
             
-			if (tempArray.length == 1)
+			if (tempArray.length >= 1)
 			{
 				score = tempArray[0]+tempArray[0];
             }

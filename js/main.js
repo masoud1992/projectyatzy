@@ -59,7 +59,6 @@ $(document).ready(function() {
 
 
 
-    totalScore();
     var throwCounter = 0;
     var gameOver = false;
     nextStepGuide(throwCounter);
@@ -379,7 +378,6 @@ $(document).ready(function() {
             url: '/queries/readAll'
         }).done(function(data) {
             globalSelectFromDB = data;
-            saveTotalscoreToDb();
             var totalScoreArray = [];
             var wongamesArray = [];
             for (let i = 0; i < data.length; i++) {
