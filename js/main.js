@@ -1,6 +1,6 @@
 // new Dbconn();
 $(document).ready(function() {
-
+  
   var globalSelectFromDB;
   // saveTotalscoreToDb();
     populateStatLists();//.done(function(){
@@ -188,10 +188,9 @@ $(document).ready(function() {
         } else {
             displayDice(throwDice());
             nextStepGuide(throwCounter);
+            
         }
-        if (gameOver) {
-            totalScore(tempPlayerField, inputCountertemp);
-        }
+        
 
     });
 
@@ -206,9 +205,17 @@ $(document).ready(function() {
         resetDices();
         throwCounter=0;
         nextStepGuide(throwCounter);
+        checkIfScoreboardFull();
 		updateTotalScore();
 		checkBonus(activePlayer);
         changePlayer();
+    }
+
+    function checkIfScoreboardFull() {
+        if($(".unchosen").length == 0){
+            saveTotalscoreToDb();
+            gameOver = true;
+        }
     }
 
     function displayDice(dices) {
@@ -325,53 +332,6 @@ $(document).ready(function() {
 
     }
 
-    function checkIfGameIsOver(inputCountertemp) {
-
-        for (var i = 0; i <= 18; i++) {
-            inputID = inputCountertemp + "score" + i;
-            if (inputID.value != '') {
-                alert("Gave over");
-            }
-        }
-    }
-
-    function incrementInputCounters(inputCountertemp) {
-        switch (inputCountertemp) {
-            case "player1":
-                {
-                    inputCounterP1++;
-                    if (inputCounterP1 >= 24) {
-                        checkIfGameIsOver(inputCountertemp);
-                    }
-                    break;
-                }
-            case "player2":
-                {
-                    inputCounterP2++;
-                    if (inputCounterP2 >= 24) {
-                        checkIfGameIsOver(inputCountertemp);
-                    }
-                    break;
-                }
-            case "player3":
-                {
-                    inputCounterP3++;
-                    if (inputCounterP3 >= 24) {
-                        checkIfGameIsOver(inputCountertemp);
-                    }
-                    break;
-                }
-            case "player4":
-                {
-                    inputCounterP4++;
-                    if (inputCounterP4 >= 24) {
-                        checkIfGameIsOver(inputCountertemp);
-                    }
-                    break;
-                }
-
-        }
-    }
 
     function checkBonus(player) {
         // var tempCount = 0;
