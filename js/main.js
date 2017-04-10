@@ -249,46 +249,6 @@ $(document).ready(function() {
         }
     }
 
-    function updateTotalScore()
-    {
-        var totalScore = 0;
-
-        for (i = 0; i <= 15; i++)
-        {
-            if ($('#player' + activePlayer + 'score' + i).hasClass('chosen'))
-            {
-                var score = parseInt($('#player' + activePlayer + 'score' + i).text(), 10);
-                totalScore += score;
-            }
-        }
-
-        $('#player' + activePlayer + 'Total').text(totalScore);
-    }
-
-    function totalScore(playerField, playerNumber) {
-        var sum = $(playerNumber).text();
-        var tempPlayerName = "#" + playerNumber + "Name"
-        var userName = $(tempPlayerName).text();
-        sum = parseInt(sum, 10);
-
-        var dataString = {
-            userName: userName,
-            totalScore: sum
-        };
-        // $.ajax({
-        //   type: 'POST',
-        //   url:'/queries/insertTotalScore',
-        //   contentType: "application/json",
-        //   data: JSON.stringify(dataString),
-        //   contentType: "application/json"
-        // }).done(function(data){
-        //   console.log(data);
-        // });
-
-
-    }
-
-
 
     function nextStepGuide(stepInt) {
 
