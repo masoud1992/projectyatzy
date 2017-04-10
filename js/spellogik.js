@@ -9,7 +9,7 @@ var spellogik = {
 			}
 		}
 		return {sum: score, plats: "score1"};
-	}, 
+	},
 
 	twos: function (dices){
 		var score = 0;
@@ -20,7 +20,7 @@ var spellogik = {
             }
 		}
 		return {sum: score, plats: "score2"};
-	}, 
+	},
 
 	threes: function (dices){
 		var score = 0;
@@ -31,7 +31,7 @@ var spellogik = {
             }
 		}
 		return {sum: score, plats: "score3"};
-	}, 
+	},
 
 	fours: function (dices){
 		var score = 0;
@@ -42,7 +42,7 @@ var spellogik = {
             }
 		}
 		return {sum: score, plats: "score4"};
-	}, 
+	},
 
 	fives: function (dices){
 		var score = 0;
@@ -53,7 +53,7 @@ var spellogik = {
             }
 		}
 		return {sum: score, plats: "score5"};
-	}, 
+	},
 
 	sixes: function (dices){
 		var score = 0;
@@ -65,7 +65,7 @@ var spellogik = {
         }
 
 		return {sum: score, plats: "score6"};
-	},  
+	},
 
 	onepair: function (dices){
 
@@ -81,18 +81,18 @@ var spellogik = {
                     currentDice = dices[j];
                     count++;
                 }
-                
+
             if(count >= 2){
                 tempArray.push(currentDice);
                 count = 0;
             }
             }
         }
-            
+
             tempArray.sort(function(a,b){
                 return b-a;
             });
-            
+
 			if (tempArray.length >= 1)
 			{
 				score = tempArray[0]+tempArray[0];
@@ -115,18 +115,18 @@ var spellogik = {
                     count++;
                 }
 
-                
+
             if(count >= 2){
                 tempArray.push(currentDice);
                 count = 0;
             }
             }
         }
-           
+
             if(tempArray.length > 1){
             	score = tempArray[0] + tempArray[0] + tempArray[1] + tempArray[1];
             }
-    
+
         return {sum: score, plats: "score8"};
     },
 
@@ -143,7 +143,7 @@ var spellogik = {
                     currentDice = dices[j];
                     count++;
                 }
-                
+
             if(count == 3){
                 tempArray.push(currentDice);
                 count = 0;
@@ -155,7 +155,7 @@ var spellogik = {
             if(tempArray.length > 0){
             	score = tempArray[0] + tempArray[0] + tempArray[0];
             }
-    
+
         return {sum: score, plats: "score9"};
     },
 
@@ -172,7 +172,7 @@ var spellogik = {
                     currentDice = dices[j];
                     count++;
                 }
-                
+
             if(count == 4){
                 tempArray.push(currentDice);
                 count = 0;
@@ -184,7 +184,7 @@ var spellogik = {
             if(tempArray.length > 0){
             	score = tempArray[0] * 4;
             }
-    
+
         return {sum: score, plats: "score10"};
     },
 
@@ -192,22 +192,22 @@ var spellogik = {
     	var score = 0;
         var counter = 0;
         var isSmallStraight = false;
-		
+
 		var tempArray = [];
-		
-        
-		
+
+
+
 		for (var i = 0; i < dices.length; i++)
 		{
 			tempArray.push(dices[i]);
 		}
-		
+
 		tempArray.sort(function(a,b){
             return a-b;
         });
-		
+
 		console.log('dices i small straight: ' + dices);
-        
+
         if(tempArray[0] == 1){
 
 
@@ -218,21 +218,21 @@ var spellogik = {
                     counter++;
 
                 }
-                
+
                 else{
                     isSmallStraight = false;
                     break;
                 }
             }
         }
-		
+
 
         if(isSmallStraight){
             score = 15;
         }
-		
-		
-        
+
+
+
         return {sum: score, plats: "score11"};
     },
 
@@ -241,13 +241,13 @@ var spellogik = {
         var counter = 1;
         var isLargeStraight = false;
 		var tempArray = [];
-		
-		
+
+
 		for (var i = 0; i < dices.length; i++)
 		{
 			tempArray.push(dices[i]);
 		}
-        
+
 		tempArray.sort(function(a,b){
             return a-b;
         });
@@ -262,7 +262,7 @@ var spellogik = {
                     counter++;
 
                 }
-                
+
                 else{
                     isLargeStraight = false;
                     break;
@@ -273,7 +273,7 @@ var spellogik = {
         if(isLargeStraight){
             score = 20;
         }
-        
+
         return {sum: score, plats: "score12"};
     },
 
@@ -281,22 +281,30 @@ var spellogik = {
 
        var score = 0;
 	   var tempArray = [];
-       
+
 	   for (var i = 0; i < dices.length; i++)
 		{
 			tempArray.push(dices[i]);
 		}
-		
+
 		tempArray.sort(function(a,b){
             return a-b;
         });
-        
+
 		if(((tempArray[0] == tempArray[1]) &&  (tempArray[3] == tempArray[4])) && ((tempArray[2] == tempArray[1]) || (tempArray[2] == tempArray[4]))) {
             score = 28;
         }
-          
+				var count =0;
+				for(var i = 0; i < tempArray.length; i++){
+            if(tempArray[i] == tempArray[0]){
+								count++;
+            }
+        }
+				if(count==5){
+					score=0;
+				}
         return {sum: score, plats: "score13"};
-       
+
     },
 
     chance: function(dices){
@@ -308,18 +316,18 @@ var spellogik = {
     },
 
     yatzy: function(dices){
-    	
+
         var score = 0;
         var reference = dices[0];
         var isYatzy = true;
 
         for(var i = 0; i < dices.length; i++){
             if(dices[i] == dices[0]){
-                
+
             }
             else{
                 isYatzy = false;
-                
+
             }
         }
 
@@ -331,7 +339,7 @@ var spellogik = {
 
 
 
-			
+
 
 
 
