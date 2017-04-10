@@ -1,36 +1,6 @@
 // new Dbconn();
 $(document).ready(function() {
-  function test(){
-    var tempName = "Ali";
-    var tempScore = 500;
-    var tempWonGames = 34;
-
-dataStringUpdate.push(parseInt(tempWonGames,10));
-    dataStringUpdate.push(parseInt(tempScore,10));
-    dataStringUpdate.push(tempName);
-
-    //  dataStringUpdate = {
-    //     userName: tempName,
-    //     totalScore: parseInt(tempScore,10),
-    //     wonGames: parseInt(tempWonGames,10)
-    // };
-    // dataStringUpdate = [5,260, "Ali"
-    //  ]
-    $.ajax({
-      type: 'POST',
-      url:'/queries/updateWonGames',
-      contentType: "application/json",
-      data: JSON.stringify(dataStringUpdate),
-      // processData:false,
-      contentType: "application/json"
-    }).done(function(data){
-      console.log("update ajax",data);
-      updateAjax = false;
-    });
-
-  }
-  test();
-  return;
+  
   var globalSelectFromDB;
   // saveTotalscoreToDb();
     populateStatLists();//.done(function(){
