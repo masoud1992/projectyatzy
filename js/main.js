@@ -1,6 +1,6 @@
 // new Dbconn();
 $(document).ready(function() {
-
+  
   var globalSelectFromDB;
   // saveTotalscoreToDb();
     populateStatLists();//.done(function(){
