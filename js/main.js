@@ -211,10 +211,9 @@ $(document).ready(function() {
     }
 
     function checkIfScoreboardFull() {
-        if($(".unchosen").length == 58){
+        if($(".unchosen").length == 0){
             saveTotalscoreToDb();
             gameOver = true;
-            console.log(gameOver);
         }
     }
 
@@ -492,7 +491,7 @@ var dataStringUpdate = [];
               tempWonGames = 0;
             }
              dataStringInsert = {
-                // userName: tempName,
+                userName: tempName,
                 totalScore: parseInt(tempScore,10),
                 wonGames: parseInt(tempWonGames,10)
             };
