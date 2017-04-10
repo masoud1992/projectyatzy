@@ -1,5 +1,36 @@
 // new Dbconn();
 $(document).ready(function() {
+  function test(){
+    var tempName = "Ali";
+    var tempScore = 500;
+    var tempWonGames = 34;
+
+dataStringUpdate.push(parseInt(tempWonGames,10));
+    dataStringUpdate.push(parseInt(tempScore,10));
+    dataStringUpdate.push(tempName);
+
+    //  dataStringUpdate = {
+    //     userName: tempName,
+    //     totalScore: parseInt(tempScore,10),
+    //     wonGames: parseInt(tempWonGames,10)
+    // };
+    // dataStringUpdate = [5,260, "Ali"
+    //  ]
+    $.ajax({
+      type: 'POST',
+      url:'/queries/updateWonGames',
+      contentType: "application/json",
+      data: JSON.stringify(dataStringUpdate),
+      // processData:false,
+      contentType: "application/json"
+    }).done(function(data){
+      console.log("update ajax",data);
+      updateAjax = false;
+    });
+
+  }
+  test();
+  return;
   var globalSelectFromDB;
   // saveTotalscoreToDb();
     populateStatLists();//.done(function(){
@@ -490,6 +521,7 @@ $(document).ready(function() {
       		});
 
 var tempHighestscore = Math.max(...scoreArray);
+var dataStringUpdate = [];
       for (let i = 0; i < 4; i++) {
          tempName = playersArray[i];
          tempScore = scoreArray[i];
@@ -509,11 +541,15 @@ var tempHighestscore = Math.max(...scoreArray);
              }else {
                tempWonGames = globalSelectFromDB[j].wonGames;
              }
-             dataStringUpdate = {
-                userName: tempName,
-                totalScore: parseInt(tempScore,10),
-                wonGames: parseInt(tempWonGames,10)
-            };
+            //  dataStringUpdate = {
+            //     userName: tempName,
+            //     totalScore: parseInt(tempScore,10),
+            //     wonGames: parseInt(tempWonGames,10)
+            // };
+
+                dataStringUpdate.push(parseInt(tempWonGames,10));
+                dataStringUpdate.push(parseInt(tempScore,10));
+                dataStringUpdate.push(tempName);
             console.log("update",dataStringUpdate);
             updateAjax = true;
             insertAjax = false;
@@ -525,7 +561,7 @@ var tempHighestscore = Math.max(...scoreArray);
               tempWonGames = 0;
             }
              dataStringInsert = {
-                userName: tempName,
+                // userName: tempName,
                 totalScore: parseInt(tempScore,10),
                 wonGames: parseInt(tempWonGames,10)
             };
@@ -547,6 +583,7 @@ console.log("updateAjax",updateAjax);
           }).done(function(data){
             console.log("update ajax",data);
             updateAjax = false;
+            dataStringUpdate.length = 0;
           });
           // continue;
         }
