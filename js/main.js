@@ -1,6 +1,6 @@
 // new Dbconn();
 $(document).ready(function() {
-  
+
   var globalSelectFromDB;
   // saveTotalscoreToDb();
     populateStatLists();//.done(function(){
@@ -57,9 +57,6 @@ $(document).ready(function() {
 
     });
 
-
-
-    totalScore();
     var throwCounter = 0;
     var gameOver = false;
     nextStepGuide(throwCounter);
@@ -188,9 +185,9 @@ $(document).ready(function() {
         } else {
             displayDice(throwDice());
             nextStepGuide(throwCounter);
-            
+
         }
-        
+
 
     });
 
@@ -339,7 +336,6 @@ $(document).ready(function() {
             url: '/queries/readAll'
         }).done(function(data) {
             globalSelectFromDB = data;
-            saveTotalscoreToDb();
             var totalScoreArray = [];
             var wongamesArray = [];
             for (let i = 0; i < data.length; i++) {
