@@ -20,6 +20,7 @@ module.exports = class SqlRouter {
           '/queries/' + qname.toLowerCase(),
           (req,res)=>{
             this.db.query(query,req.body,(err,result)=>{
+              console.log(query,req.body);
               if(err){
                 res.json({error:err});
               }
