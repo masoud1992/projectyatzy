@@ -205,8 +205,9 @@ $(document).ready(function() {
         resetDices();
         throwCounter=0;
         nextStepGuide(throwCounter);
-        updateTotalScore();
         checkIfScoreboardFull();
+		updateTotalScore();
+		checkBonus(activePlayer);
         changePlayer();
     }
 
@@ -336,23 +337,24 @@ $(document).ready(function() {
         // var tempCount = 0;
         var tempValue = 0;
         var currentTotal = 0;
-        var tempPlayerTotal = "#" + player + "Total";
+        var tempPlayerTotal = "#player" + player + "Total";
 
         currentTotal = $(tempPlayerTotal).text();
         currentTotal = parseInt(currentTotal, 10);
         for (let i = 1; i < 7; i++) {
-            var inputID = player + "score" + i;
-            var tempId = document.getElementById(inputID).value;
+            var inputID = '#player'+player + "score" + i;
+            var tempId = $(inputID).text();
             if (tempId != '') {
                 // tempCount++;
                 tempValue += parseInt(tempId, 10);
             }
         }
         tempValue = parseInt(tempValue, 10);
+		$('.player'+player+'Score').text(tempValue);
 
         if (tempValue >= 63) {
 
-            tempPlayer = "." + player + "Bonus";
+            tempPlayer = ".player" + player + "Bonus";
             $(tempPlayer).text(50);
             $(tempPlayerTotal).html("");
             currentTotal += 50;
@@ -444,6 +446,7 @@ $(document).ready(function() {
       			playersArray[j]=$(this).val();
       			j++;
       		});
+          console.log(playersArray);
           j=0;
           $(".playerScoreTestTotal").each(function(){
       			scoreArray[j]=$(this).text();
@@ -452,6 +455,7 @@ $(document).ready(function() {
 
 var tempHighestscore = Math.max(...scoreArray);
 var dataStringUpdate = [];
+// var dataStringInsert = [];
       for (let i = 0; i < 4; i++) {
          tempName = playersArray[i];
          tempScore = scoreArray[i];
@@ -495,6 +499,11 @@ var dataStringUpdate = [];
                 totalScore: parseInt(tempScore,10),
                 wonGames: parseInt(tempWonGames,10)
             };
+            // dataStringInsert.push(String(tempName));
+            // dataStringInsert.push(parseInt(tempScore,10));
+            // dataStringInsert.push(parseInt(tempWonGames,10));
+
+
             console.log("insert",dataStringInsert);
             insertAjax = true;
             updateAjax = false;
@@ -529,6 +538,7 @@ console.log("updateAjax",updateAjax);
           }).done(function(data){
             console.log("insert ajax",data);
               insertAjax = false;
+              dataStringInsert.length = 0;
           });
           // continue;
         }

@@ -189,20 +189,22 @@ var spellogik = {
     },
 
     smallStraight: function(dices){
-    	var score = null;
+    	var score = 0;
         var counter = 0;
         var isSmallStraight = false;
 		
 		var tempArray = [];
 		
-        /* tempArray.sort(function(a,b){
-            return a-b;
-        }); */
+        
 		
 		for (var i = 0; i < dices.length; i++)
 		{
 			tempArray.push(dices[i]);
 		}
+		
+		tempArray.sort(function(a,b){
+            return a-b;
+        });
 		
 		console.log('dices i small straight: ' + dices);
         
@@ -228,10 +230,6 @@ var spellogik = {
         if(isSmallStraight){
             score = 15;
         }
-		else
-		{
-			score = 0;
-		}
 		
 		
         
@@ -239,17 +237,22 @@ var spellogik = {
     },
 
     largeStraight: function(dices){
-    	var score = null;
+    	var score = 0;
         var counter = 1;
         var isLargeStraight = false;
 		var tempArray = [];
+		
 		
 		for (var i = 0; i < dices.length; i++)
 		{
 			tempArray.push(dices[i]);
 		}
         
-        if(tempArray[0] == 2){
+		tempArray.sort(function(a,b){
+            return a-b;
+        });
+		console.log('dices i large straight: ' + dices);
+		if(tempArray[0] == 2){
 
 
             for(var i = 0; i < tempArray.length; i++){
@@ -270,17 +273,13 @@ var spellogik = {
         if(isLargeStraight){
             score = 20;
         }
-		else
-		{
-			score = 0;
-		}
         
         return {sum: score, plats: "score12"};
     },
 
     fullHouse: function(dices){
 
-       var score = null;
+       var score = 0;
 	   var tempArray = [];
        
 	   for (var i = 0; i < dices.length; i++)
@@ -288,13 +287,13 @@ var spellogik = {
 			tempArray.push(dices[i]);
 		}
 		
-        if(((tempArray[0] == tempArray[1]) &&  (tempArray[3] == tempArray[4])) && ((tempArray[2] == tempArray[1]) || (tempArray[2] == tempArray[4]))) {
+		tempArray.sort(function(a,b){
+            return a-b;
+        });
+        
+		if(((tempArray[0] == tempArray[1]) &&  (tempArray[3] == tempArray[4])) && ((tempArray[2] == tempArray[1]) || (tempArray[2] == tempArray[4]))) {
             score = 28;
         }
-		else
-		{
-			score = 0;
-		}
           
         return {sum: score, plats: "score13"};
        
@@ -310,7 +309,7 @@ var spellogik = {
 
     yatzy: function(dices){
     	
-        var score = null;
+        var score = 0;
         var reference = dices[0];
         var isYatzy = true;
 
