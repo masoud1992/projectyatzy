@@ -91,41 +91,41 @@ $(document).ready(function() {
     }
 
     function throwDice() {
-        
+
 		throwCounter++;
 		var dices = [1,2,3,4,5];
-		
+
 		for(i=1;i<=5;i++){
-			
+
 			var diceNumber = returnNumberAsWord(i);
-			
+
 			if($('#dice'+diceNumber).hasClass('unmarked')){
-				
+
 				var randomNumber = Math.floor((Math.random()*6)+1);
 				dices.splice(i-1,1,randomNumber);
-				
-				
+
+
 			}
 			else if($('#dice'+diceNumber).hasClass('marked')){
-				
+
 				console.log('markerad position på tärning: '+i);
 				var diceText=$('#dice'+diceNumber).attr('src');
 				diceText=diceText.substr(-5,1);
 				var diceValue=parseInt(diceText);
-				
+
 				dices.splice(i-1,1,diceValue);
 			}
-			
+
 		}
 
 		console.log('Initial array ' + dices);
 		var tempArray = dices;
-		
+
         getSpelLogik(tempArray);
-		
+
 		console.log('Efter spellogik, dices: ' + dices);
 		console.log('Efter spellogik, tempArray: ' + tempArray);
-		
+
         return dices;
     }
 
@@ -133,7 +133,7 @@ $(document).ready(function() {
         var plats = e.target.id;
         var score = plats.substr(plats.length - 1);
         var overNineScore = plats.substr(plats.length - 2);
-		
+
 		overNineScore=overNineScore.substr(0,1);
 		if(overNineScore==1){
 			score=overNineScore+score;
@@ -151,20 +151,16 @@ $(document).ready(function() {
 
 
      function getSpelLogik(dices){
-		 
-		
-        for(var f in spellogik){ 
-			console.log('getSpelLogik före: ' + dices);
+
+
+        for(var f in spellogik){
 			if($('#player' + activePlayer + spellogik[f](dices).plats).hasClass('unchosen'))
 			{
 				$('#player' + activePlayer + spellogik[f](dices).plats).text(spellogik[f](dices).sum);
             }
-			console.log('getSpelLogik efter: ' + dices);
-            console.log(spellogik[f](dices).sum); 
-            console.log(spellogik[f](dices).plats);   
         }
-		
-		
+
+
     }
 
     var dicesToThrow;
@@ -199,7 +195,6 @@ $(document).ready(function() {
     });
 
     function endTurn(plats) {
-        console.log(plats);
         for(i=0;i<=15;i++){
             if($("#player"+activePlayer+"score"+i).hasClass("unchosen")){
 
@@ -217,15 +212,13 @@ $(document).ready(function() {
     function displayDice(dices) {
 
         var currentDice = 0;
-		console.log('Grafisk array: '+dices);
         for (i = 1; i <= 5; i++) {
             var diceImage = returnNumberAsWord(i);
 			var number = dices[currentDice];
-               
+
 			$('#dice' + diceImage).attr("src", "images/dices/" + number + ".png");
 
 			currentDice += 1;
-			console.log('currentdices: '+ currentDice);
         }
     }
 
@@ -523,7 +516,7 @@ var tempHighestscore = Math.max(...scoreArray);
             };
             console.log("update",dataStringUpdate);
             updateAjax = true;
-            // insertAjax = false;
+            insertAjax = false;
             // continue;
           }else{
             if(tempScore>=tempHighestscore){
@@ -553,6 +546,7 @@ console.log("updateAjax",updateAjax);
             contentType: "application/json"
           }).done(function(data){
             console.log("update ajax",data);
+            updateAjax = false;
           });
           // continue;
         }
@@ -567,6 +561,7 @@ console.log("updateAjax",updateAjax);
             contentType: "application/json"
           }).done(function(data){
             console.log("insert ajax",data);
+              insertAjax = false;
           });
           // continue;
         }
