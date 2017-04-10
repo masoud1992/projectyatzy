@@ -391,7 +391,7 @@ $(document).ready(function() {
         }
         tempValue = parseInt(tempValue, 10);
 		$('.player'+player+'Score').text(tempValue);
-		
+
         if (tempValue >= 63) {
 
             tempPlayer = ".player" + player + "Bonus";
@@ -486,6 +486,7 @@ $(document).ready(function() {
       			playersArray[j]=$(this).val();
       			j++;
       		});
+          console.log(playersArray);
           j=0;
           $(".playerScoreTestTotal").each(function(){
       			scoreArray[j]=$(this).text();
@@ -494,6 +495,7 @@ $(document).ready(function() {
 
 var tempHighestscore = Math.max(...scoreArray);
 var dataStringUpdate = [];
+// var dataStringInsert = [];
       for (let i = 0; i < 4; i++) {
          tempName = playersArray[i];
          tempScore = scoreArray[i];
@@ -533,10 +535,15 @@ var dataStringUpdate = [];
               tempWonGames = 0;
             }
              dataStringInsert = {
-                // userName: tempName,
+                userName: tempName,
                 totalScore: parseInt(tempScore,10),
                 wonGames: parseInt(tempWonGames,10)
             };
+            // dataStringInsert.push(String(tempName));
+            // dataStringInsert.push(parseInt(tempScore,10));
+            // dataStringInsert.push(parseInt(tempWonGames,10));
+
+
             console.log("insert",dataStringInsert);
             insertAjax = true;
             updateAjax = false;
@@ -571,6 +578,7 @@ console.log("updateAjax",updateAjax);
           }).done(function(data){
             console.log("insert ajax",data);
               insertAjax = false;
+              dataStringInsert.length = 0;
           });
           // continue;
         }
