@@ -188,6 +188,7 @@ $(document).ready(function() {
         } else {
             displayDice(throwDice());
             nextStepGuide(throwCounter);
+            
         }
         
 
@@ -210,12 +211,10 @@ $(document).ready(function() {
     }
 
     function checkIfScoreboardFull() {
-        if($(".unchosen").length == 0){
+        if($(".unchosen").length == 58){
             saveTotalscoreToDb();
             gameOver = true;
-            console.log("Spelet är slut")
-
-
+            console.log(gameOver);
         }
     }
 
