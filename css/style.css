@@ -8,7 +8,7 @@ td{
 	width: 30px;
 }
 input{
-	width:50px;
+	width:60px;
 }
 #score{
 	width:35px;
@@ -42,6 +42,20 @@ input{
 }
 .unchosen{
 	color:red;
+}
+.highScoreList{
+	
+}
+.wonGamesList{
+	
+}
+.rubrikBild{
+	display: inline-block;
+}
+.rubrik{
+    text-shadow: 2px 2px 4px #000000;
+	text-align:center;
+	display: inline-block;
 }
 @media screen and (min-width: 1200px){
     .col-xl-2, .playerImage, .playground{
