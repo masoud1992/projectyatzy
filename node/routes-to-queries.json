@@ -1,7 +1,0 @@
-{
-    "insertTotalScore": "INSERT INTO score SET ?",
-    "readAll": " SELECT * FROM score",
-    "updateWonGames": "UPDATE score SET wonGames = ?, totalScore = ? WHERE userName = ?",
-    "insertNewPlayer": "INSERT score SET ?"
-
-}

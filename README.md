@@ -1,2 +1,0 @@
-# projectyatzy
-yatzeee
