@@ -509,5 +509,35 @@ $(document).ready(function() {
 
 
     }
+	
+	function celebrateWinner() {
+
+		var playerNames = [];
+		var totalScores = [];
+
+		var max = 0;
+		var maxIndex = 0;
+
+		for (let i = 1; i <= 4; i++) {
+
+			playerNames.push($("#player" + i + "Name").val());
+			totalScores.push(parseInt($("#player" + i + "Total").text()));
+
+		}
+
+		for (var i = 0; i < totalScores.length; i++) {
+			if (totalScores[i] > max) {
+				maxIndex = i;
+				max = totalScores[i];
+			}
+
+			console.log("maaaaaammmaaaxxx", max, maxIndex)
+
+		}
+
+		alert(playerNames[maxIndex], "Har Vunnit!!!!")
+		$(".jumbotron").append(playerNames[maxIndex], "Har Vunnit!!!!");
+
+	}
 
 });
