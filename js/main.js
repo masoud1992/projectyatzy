@@ -531,11 +531,8 @@ $(document).ready(function() {
 				max = totalScores[i];
 			}
 
-			console.log("maaaaaammmaaaxxx", max, maxIndex)
 
-		}
-
-		alert(playerNames[maxIndex], "Har Vunnit!!!!")
+		}		
 		$(".jumbotron").append(playerNames[maxIndex], "Har Vunnit!!!!");
 
 	}
