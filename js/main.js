@@ -510,7 +510,7 @@ $(document).ready(function() {
 
 
     }
-	
+
 	function celebrateWinner() {
 
 		var playerNames = [];
