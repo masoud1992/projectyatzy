@@ -534,7 +534,7 @@ $(document).ready(function() {
 
 
 		}		
-		$(".jumbotron").append(playerNames[maxIndex], "Har Vunnit!!!!");
+		$(".rubrik").text(playerNames[maxIndex] + " har vunnit!");
 
 	}
 
