@@ -219,6 +219,7 @@ $(document).ready(function() {
         if ($(".unchosen").length == 0) {
             saveTotalscoreToDb();
             gameOver = true;
+			celebrateWinner();
         }
     }
 
