@@ -219,6 +219,7 @@ $(document).ready(function() {
         if ($(".unchosen").length == 0) {
             saveTotalscoreToDb();
             gameOver = true;
+			celebrateWinner();
         }
     }
 
@@ -531,11 +532,8 @@ $(document).ready(function() {
 				max = totalScores[i];
 			}
 
-			console.log("maaaaaammmaaaxxx", max, maxIndex)
 
-		}
-
-		alert(playerNames[maxIndex], "Har Vunnit!!!!")
+		}		
 		$(".jumbotron").append(playerNames[maxIndex], "Har Vunnit!!!!");
 
 	}
